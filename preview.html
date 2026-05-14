@@ -1,0 +1,555 @@
+
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kudeaketa Aurreratua</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#f5f5f5;
+    color:#58585a;
+}
+
+header{
+    background:linear-gradient(135deg,#58585a,#3f3f41);
+    color:white;
+    padding:90px 8%;
+    position:relative;
+    overflow:hidden;
+}
+
+header::after{
+    content:'';
+    position:absolute;
+    width:500px;
+    height:500px;
+    background:#f32837;
+    border-radius:50%;
+    top:-250px;
+    right:-200px;
+    opacity:0.15;
+}
+
+header h1{
+    font-size:4rem;
+    font-weight:700;
+    margin-bottom:20px;
+    position:relative;
+    z-index:2;
+}
+
+header p{
+    max-width:850px;
+    font-size:1.15rem;
+    line-height:1.8;
+    position:relative;
+    z-index:2;
+}
+
+.main{
+    width:92%;
+    max-width:1300px;
+    margin:auto;
+    padding:70px 0;
+}
+
+.intro{
+    background:white;
+    border-radius:30px;
+    padding:45px;
+    margin-bottom:50px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.07);
+    border-top:6px solid #f32837;
+}
+
+.intro h2{
+    color:#58585a;
+    margin-bottom:16px;
+    font-size:2rem;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    gap:28px;
+}
+
+.card{
+    background:white;
+    border-radius:28px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    transition:0.3s;
+    border:1px solid #ececec;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.accordion{
+    width:100%;
+    border:none;
+    background:white;
+    padding:28px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    transition:0.3s;
+}
+
+.left{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.icon{
+    width:60px;
+    height:60px;
+    border-radius:18px;
+    background:#f32837;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:1.5rem;
+    flex-shrink:0;
+}
+
+.left h2{
+    color:#58585a;
+    font-size:1.7rem;
+}
+
+.plus{
+    font-size:2rem;
+    color:#f32837;
+    font-weight:300;
+}
+
+.content{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.4s ease;
+}
+
+.content-inner{
+    padding:0 30px 30px 30px;
+}
+
+.content h3{
+    color:#f32837;
+    margin-top:25px;
+    margin-bottom:14px;
+}
+
+.content p{
+    line-height:1.8;
+    margin-bottom:16px;
+}
+
+.content ul{
+    padding-left:22px;
+}
+
+.content li{
+    margin-bottom:12px;
+    line-height:1.7;
+}
+
+.highlight{
+    background:#fff3f4;
+    border-left:4px solid #f32837;
+    padding:18px;
+    border-radius:12px;
+    margin-top:20px;
+}
+
+footer{
+    background:#58585a;
+    color:white;
+    text-align:center;
+    padding:45px 20px;
+    margin-top:70px;
+}
+
+footer p{
+    opacity:0.9;
+}
+
+@media(max-width:768px){
+
+    header{
+        padding:70px 8%;
+    }
+
+    header h1{
+        font-size:2.6rem;
+    }
+
+    .accordion{
+        padding:22px;
+    }
+
+    .left h2{
+        font-size:1.4rem;
+    }
+
+    .icon{
+        width:50px;
+        height:50px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>Kudeaketa Aurreratua</h1>
+
+<p>
+Kudeaketa Aurreratuaren eredua erakunde baten lehiakortasuna,
+berrikuntza, pertsonen garapena eta jasangarritasuna modu integratuan
+lantzeko erreferentziazko kudeaketa eredua da.
+</p>
+
+</header>
+
+<div class="main">
+
+<section class="intro">
+
+<h2>Kudeaketa Ereduaren Ikuspegia</h2>
+
+<p>
+Dimentsio bakoitzak erakundearen funtzionamenduan funtsezko alderdi bat lantzen du:
+estrategia, bezeroekiko harremanak, pertsonen kudeaketa, gizartearekiko konpromisoa,
+berrikuntza eta emaitzak. Atal bakoitzean klik eginez informazio zehatza ikus daiteke.
+</p>
+
+</section>
+
+<div class="grid">
+
+<div class="card">
+
+<button class="accordion">
+
+<div class="left">
+<div class="icon">
+<i class="fa-solid fa-compass"></i>
+</div>
+<h2>Estrategia</h2>
+</div>
+
+<div class="plus">+</div>
+
+</button>
+
+<div class="content">
+<div class="content-inner">
+
+<h3>Zer da?</h3>
+
+<p>
+Estrategiaren dimentsioak erakundearen norabidea eta etorkizuneko ikuspegia definitzen ditu.
+Helburua da epe luzerako planifikazio sendoa egitea eta erakundearen helburuak modu argian ezartzea.
+</p>
+
+<div class="highlight">
+Merkatuaren azterketa, interes taldeen identifikazioa eta helburu estrategikoak dira dimentsio honen oinarriak.
+</div>
+
+<h3>Landutako alderdiak</h3>
+
+<ul>
+<li>Misioa, ikuspegia eta balioak definitzea.</li>
+<li>Helburu estrategikoak garatzea.</li>
+<li>Arrisku eta aukeren analisia.</li>
+<li>Erabaki estrategikoen jarraipena.</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div class="card">
+
+<button class="accordion">
+
+<div class="left">
+<div class="icon">
+<i class="fa-solid fa-users"></i>
+</div>
+<h2>Bezeroak</h2>
+</div>
+
+<div class="plus">+</div>
+
+</button>
+
+<div class="content">
+<div class="content-inner">
+
+<h3>Zer da?</h3>
+
+<p>
+Bezeroen dimentsioak bezeroen beharrak ulertzea eta haien gogobetetasuna bermatzea du helburu.
+Erakundeak balio erantsia eskaini behar du bezeroarekiko harreman iraunkorrak sortzeko.
+</p>
+
+<div class="highlight">
+Bezeroaren esperientzia, komunikazioa eta zerbitzuaren kalitatea dira ardatz nagusiak.
+</div>
+
+<h3>Landutako alderdiak</h3>
+
+<ul>
+<li>Bezeroen segmentazioa.</li>
+<li>Entzute aktiboa eta inkestak.</li>
+<li>Kalitatezko zerbitzua.</li>
+<li>Fidelizazio estrategiak.</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div class="card">
+
+<button class="accordion">
+
+<div class="left">
+<div class="icon">
+<i class="fa-solid fa-people-group"></i>
+</div>
+<h2>Pertsonak</h2>
+</div>
+
+<div class="plus">+</div>
+
+</button>
+
+<div class="content">
+<div class="content-inner">
+
+<h3>Zer da?</h3>
+
+<p>
+Pertsonen dimentsioak langileen garapena, motibazioa eta ongizatea sustatzen ditu.
+Pertsonak erakundearen aktibo estrategiko nagusietako bat dira.
+</p>
+
+<div class="highlight">
+Prestakuntza, lidergo parte-hartzailea eta lan giro osasungarria sustatzen dira.
+</div>
+
+<h3>Landutako alderdiak</h3>
+
+<ul>
+<li>Prestakuntza eta gaitasunak.</li>
+<li>Lidergoa eta komunikazioa.</li>
+<li>Lan giro segurua.</li>
+<li>Motibazioa eta parte-hartzea.</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div class="card">
+
+<button class="accordion">
+
+<div class="left">
+<div class="icon">
+<i class="fa-solid fa-earth-europe"></i>
+</div>
+<h2>Gizartea</h2>
+</div>
+
+<div class="plus">+</div>
+
+</button>
+
+<div class="content">
+<div class="content-inner">
+
+<h3>Zer da?</h3>
+
+<p>
+Gizartearen dimentsioak erakundearen eragin soziala eta ingurumenarekiko konpromisoa aztertzen ditu.
+Helburua da jarduera jasangarri eta arduratsuak sustatzea.
+</p>
+
+<div class="highlight">
+Etika, gardentasuna eta ingurumenaren babesa dira dimentsio honen oinarriak.
+</div>
+
+<h3>Landutako alderdiak</h3>
+
+<ul>
+<li>Jasangarritasuna.</li>
+<li>Komunitatearekiko konpromisoa.</li>
+<li>ODS helburuak.</li>
+<li>Ingurumen inpaktuaren murrizketa.</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div class="card">
+
+<button class="accordion">
+
+<div class="left">
+<div class="icon">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<h2>Berrikuntza</h2>
+</div>
+
+<div class="plus">+</div>
+
+</button>
+
+<div class="content">
+<div class="content-inner">
+
+<h3>Zer da?</h3>
+
+<p>
+Berrikuntzaren dimentsioak ideia berriak, sormena eta etengabeko hobekuntza sustatzen ditu.
+Helburua da erakundearen lehiakortasuna indartzea.
+</p>
+
+<div class="highlight">
+Digitalizazioa, teknologia eta berrikuntza kultura dira dimentsioaren ardatz nagusiak.
+</div>
+
+<h3>Landutako alderdiak</h3>
+
+<ul>
+<li>Ideia berrien sorrera.</li>
+<li>Digitalizazioa.</li>
+<li>Etengabeko hobekuntza.</li>
+<li>Proiektu berritzaileak.</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div class="card">
+
+<button class="accordion">
+
+<div class="left">
+<div class="icon">
+<i class="fa-solid fa-chart-line"></i>
+</div>
+<h2>Emaitzak</h2>
+</div>
+
+<div class="plus">+</div>
+
+</button>
+
+<div class="content">
+<div class="content-inner">
+
+<h3>Zer da?</h3>
+
+<p>
+Emaitzen dimentsioak erakundearen jardueraren emaitzak neurtzen ditu ikuspegi ekonomiko,
+sozial eta operatibo batetik.
+</p>
+
+<div class="highlight">
+Errendimendua, gogobetetasuna eta jasangarritasun emaitzak ebaluatzen dira.
+</div>
+
+<h3>Landutako alderdiak</h3>
+
+<ul>
+<li>Errendimendu ekonomikoa.</li>
+<li>Bezeroen gogobetetasuna.</li>
+<li>Pertsonen konpromisoa.</li>
+<li>Jasangarritasun emaitzak.</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<footer>
+<p>Kudeaketa Aurreratua · HTML Diseinu Interaktiboa</p>
+</footer>
+
+<script>
+
+const accordions = document.querySelectorAll('.accordion');
+
+accordions.forEach(acc => {
+
+    acc.addEventListener('click', function(){
+
+        const content = this.nextElementSibling;
+        const plus = this.querySelector('.plus');
+
+        if(content.style.maxHeight){
+
+            content.style.maxHeight = null;
+            plus.textContent = '+';
+
+        }else{
+
+            content.style.maxHeight = content.scrollHeight + 'px';
+            plus.textContent = '−';
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
