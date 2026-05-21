@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GJH - Garapen Jasangarrirako Helburuak · Interaktiboa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f7fb;
+      --dark: #101828;
+      --gray: #475467;
+      --white: #ffffff;
+      --primary: #f32837;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --radius: 24px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    header {
+      min-height: 100vh;
+      background:
+        linear-gradient(135deg, rgba(20,20,20,0.88), rgba(243,40,55,0.82)),
+        url('https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=1600&auto=format&fit=crop') center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+      color: white;
+      position: relative;
+    }
+
+    .hero {
+      max-width: 1000px;
+      animation: fadeUp 1s ease;
+    }
+
+    .hero span {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 10px 20px;
+      border-radius: 999px;
+      margin-bottom: 25px;
+      backdrop-filter: blur(8px);
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1;
+      margin-bottom: 25px;
+      font-weight: 800;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.92;
+      max-width: 850px;
+      margin: auto;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav h2 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--gray);
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    section {
+      max-width: 1300px;
+      margin: auto;
+      padding: 100px 40px;
+    }
+
+    .section-title {
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      color: var(--gray);
+      max-width: 800px;
+      font-size: 1.1rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: var(--shadow);
+      transition: 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #f32837, #f58585);
+    }
+
+    .card h3 {
+      margin-bottom: 18px;
+      font-size: 1.4rem;
+    }
+
+    .card p {
+      color: var(--gray);
+      font-size: 0.98rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 30px;
+    }
+
+    .timeline-item {
+      background: white;
+      padding: 35px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border-left: 8px solid #f32837;
+    }
+
+    .timeline-item h3 {
+      margin-bottom: 14px;
+      font-size: 1.5rem;
+    }
+
+    .timeline-item p {
+      color: var(--gray);
+    }
+
+    .ods-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px;
+    }
+
+    .ods-item {
+      border-radius: 22px;
+      color: white;
+      padding: 28px 20px;
+      min-height: 170px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      transition: 0.35s ease;
+    }
+
+    .ods-item:hover {
+      transform: scale(1.03);
+    }
+
+    .ods-item strong {
+      font-size: 2.2rem;
+      font-weight: 800;
+    }
+
+    .ods-item h4 {
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .interactive {
+      background: linear-gradient(135deg, #101828, #1e3a8a);
+      border-radius: 40px;
+      color: white;
+      padding: 60px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .interactive h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .interactive p {
+      opacity: 0.9;
+      max-width: 800px;
+      margin: auto auto 40px;
+    }
+
+    .progress-container {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .progress-bar {
+      background: rgba(255,255,255,0.12);
+      border-radius: 999px;
+      height: 20px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg,#f32837,#f58585);
+      transition: width 1s ease;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    button {
+      border: none;
+      padding: 14px 24px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: 0.3s;
+      background: white;
+      color: #111827;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 60px 30px;
+      margin-top: 100px;
+    }
+
+    footer p {
+      opacity: 0.8;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .interactive {
+        padding: 40px 25px;
+      }
+
+      section {
+        padding: 80px 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hero">
+    <span>Iraurgi Berritzen · 2030 Agenda · GJH</span>
+    <h1>Garapen Jasangarrirako Helburuak</h1>
+    <p>
+      Erakunde, enpresa eta gizarte osoarentzat diseinatutako ikuspegi estrategikoa.
+      GJH-ek garapen iraunkorra, berrikuntza, gizarte-inpaktua eta etorkizun jasangarria sustatzen dituzte.
+    </p>
+  </div>
+</header>
+
+<nav>
+  <h2>Iraurgi Berritzen · GJH</h2>
+  <ul>
+    <li><a href="#sarrera">Sarrera</a></li>
+    <li><a href="#elementuak">Kudeaketa</a></li>
+    <li><a href="#ods">18 GJH</a></li>
+    <li><a href="#inpaktua">Inpaktua</a></li>
+  </ul>
+</nav>
+
+<section id="sarrera">
+  <div class="section-title">
+    <h2>Zer dira GJH-ak?</h2>
+    <p>
+      Garapen Jasangarrirako Helburuak (GJH) Nazio Batuen 2030 Agendaren ardatz nagusiak dira.
+      Helburua da erakundeek eta gizarteak ingurumen, ekonomia eta gizartearen arteko oreka iraunkorra lortzea.
+      Dokumentu erreferentzialean bezala, Euskadik 18. GJH ere gehitzen du: hizkuntza eta kultura aniztasuna.
+    </p>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Estrategia</h3>
+      <p>
+        GJH-ak erakundearen misioan, ikuspegian eta balioetan integratzea.
+        Epe luzeko planifikazio iraunkorra garatzea.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Pertsonak</h3>
+      <p>
+        Berdintasuna, osasuna, prestakuntza eta aniztasuna sustatzen dituzten politikak.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Ingurumena</h3>
+      <p>
+        Energia berriztagarriak, hondakinen murrizketa eta karbono aztarnaren optimizazioa.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Berrikuntza</h3>
+      <p>
+        Gizarte eta ingurumen inpaktu positiboa sortzen duten proiektu berritzaileak.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Bezeroak</h3>
+      <p>
+        Bezeroen beharrak eta jasangarritasunarekiko itxaropenak kontuan hartzen dituzten produktu eta zerbitzuak.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Emaitzak</h3>
+      <p>
+        GJH-ek erakundean eta gizartean duten benetako inpaktua adierazleen bidez neurtzea.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="elementuak">
+  <div class="section-title">
+    <h2>Kudeaketa Elementuak</h2>
+    <p>
+      Erreferentziazko dokumentuak azaltzen duen bezala, erakunde batek GJH-ak modu eraginkorrean integratzeko sei elementu estrategiko hartu behar ditu kontuan.
+    </p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <h3>1. Estrategia</h3>
+      <p>
+        Garapen jasangarria erakundearen estrategiaren erdigunean kokatzea.
+        Helburu estrategikoak GJH-ekin lerrokatzea eta inpaktu positiboa sortzea.
+      </p>
+    </div>
+
+    <div class="timeline-item">
+      <h3>2. Bezeroak</h3>
+      <p>
+        Produktu eta zerbitzu jasangarriak diseinatzea, bezeroen behar sozialak eta ingurumenekoak kontuan hartuz.
+      </p>
+    </div>
+
+    <div class="timeline-item">
+      <h3>3. Pertsonak</h3>
+      <p>
+        Berdintasuna, ongizatea, prestakuntza eta inklusioa sustatzen dituzten praktikak garatzea.
+      </p>
+    </div>
+
+    <div class="timeline-item">
+      <h3>4. Gizartea</h3>
+      <p>
+        Ingurune sozialarekin konpromisoa hartzea eta komunitatean inpaktu positiboa sortzea.
+      </p>
+    </div>
+
+    <div class="timeline-item">
+      <h3>5. Berrikuntza</h3>
+      <p>
+        Teknologia eta ezagutza erabiliz etorkizun jasangarriagoa eraikitzeko irtenbide berriak garatzea.
+      </p>
+    </div>
+
+    <div class="timeline-item">
+      <h3>6. Emaitzak</h3>
+      <p>
+        Adierazleen bidez aurrerapena neurtzea eta GJH-ek sortutako benetako inpaktua ebaluatzea.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="ods">
+  <div class="section-title">
+    <h2>18 GJH-ak</h2>
+    <p>
+      Euskadiko ikuspegian, 17 GJH ofizialei hizkuntza eta kultura aniztasunari lotutako 18. helburua gehitzen zaie.
+    </p>
+  </div>
+
+  <style>
+.accordion-container{display:grid;gap:18px;margin-top:50px}
+.accordion-item{background:white;border-radius:22px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.accordion-header{display:flex;align-items:center;gap:20px;padding:22px;cursor:pointer;font-weight:700;font-size:1.1rem}
+.accordion-header img{width:70px;height:70px;border-radius:14px}
+.accordion-content{max-height:0;overflow:hidden;transition:max-height .5s ease;padding:0 22px;color:#475467}
+.accordion-content p{padding-bottom:24px}
+</style>
+
+<style>
+.accordion-container{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+margin-top:50px
+}
+@media(max-width:900px){
+.accordion-container{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+.accordion-container{grid-template-columns:1fr}
+}
+</style>
+
+<div class="accordion-container">
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-01.jpg">
+<span>1 · Pobrezia Amaitu</span>
+</div>
+<div class="accordion-content">
+<p>Pobrezia mota guztiak desagerraraztea eta pertsona guztiei bizi baldintza duinak bermatzea. GJH honek aukera berdintasuna eta babes soziala sustatzen ditu.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-02.jpg">
+<span>2 · Gosea Desagerrarazi</span>
+</div>
+<div class="accordion-content">
+<p>Elikadura segurua eta osasuntsua bermatzea, nekazaritza jasangarria sustatuz eta desnutrizioa murriztuz.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-03.jpg">
+<span>3 · Osasuna eta Ongizatea</span>
+</div>
+<div class="accordion-content">
+<p>Pertsona guztientzat osasun eta ongizate maila egokia bermatzea, osasun sistema irisgarriak eta prebentzioa sustatuz.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-04.jpg">
+<span>4 · Kalitatezko Hezkuntza</span>
+</div>
+<div class="accordion-content">
+<p>Kalitatezko hezkuntza inklusiboa eta bidezkoa bermatzea, bizitza osoan zehar ikasteko aukerak sustatuz.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-05.jpg">
+<span>5 · Genero Berdintasuna</span>
+</div>
+<div class="accordion-content">
+<p>Genero berdintasuna lortzea eta emakume eta neska guztien ahalduntzea sustatzea.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-06.jpg">
+<span>6 · Ur Garbia eta Saneamendua</span>
+</div>
+<div class="accordion-content">
+<p>Ur garbia eta saneamendu egokia bermatzea pertsona guztientzat, baliabide hidrikoen erabilera arduratsua sustatuz.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-07.jpg">
+<span>7 · Energia Garbia</span>
+</div>
+<div class="accordion-content">
+<p>Energia eskuragarria, fidagarria eta berriztagarria sustatzea mundu osoan.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-08.jpg">
+<span>8 · Lan Duina eta Hazkunde Ekonomikoa</span>
+</div>
+<div class="accordion-content">
+<p>Hazkunde ekonomiko iraunkorra eta lan baldintza duinak sustatzea pertsona guztientzat.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-09.jpg">
+<span>9 · Industria, Berrikuntza eta Azpiegiturak</span>
+</div>
+<div class="accordion-content">
+<p>Industria jasangarria eta berrikuntza teknologikoa sustatzea, azpiegitura erresilienteekin batera.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-10.jpg">
+<span>10 · Desberdintasunak Murriztu</span>
+</div>
+<div class="accordion-content">
+<p>Herrialdeen barruan eta artean dauden desberdintasun sozial eta ekonomikoak gutxitzea.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-11.jpg">
+<span>11 · Hiri eta Komunitate Jasangarriak</span>
+</div>
+<div class="accordion-content">
+<p>Hiri seguruak, inklusiboak eta jasangarriak sustatzea, bizi kalitatea hobetuz.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-12.jpg">
+<span>12 · Kontsumo eta Ekoizpen Arduratsua</span>
+</div>
+<div class="accordion-content">
+<p>Baliabideen erabilera eraginkorra eta hondakinen murrizketa sustatzea.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-13.jpg">
+<span>13 · Klima Ekintza</span>
+</div>
+<div class="accordion-content">
+<p>Klima aldaketaren aurkako neurriak hartzea eta ingurumenaren babesa sustatzea.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-14.jpg">
+<span>14 · Itsas Bizitza</span>
+</div>
+<div class="accordion-content">
+<p>Ozeanoak eta itsas baliabideak babestea eta modu jasangarrian erabiltzea.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-15.jpg">
+<span>15 · Lurreko Ekosistemak</span>
+</div>
+<div class="accordion-content">
+<p>Lurreko ekosistemak eta biodibertsitatea babestea eta leheneratzea.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-16.jpg">
+<span>16 · Bakea, Justizia eta Erakunde Sendoak</span>
+</div>
+<div class="accordion-content">
+<p>Gizarte baketsuak sustatzea eta justizia eta gardentasuna bermatzen dituzten erakunde sendoak eraikitzea.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-17.jpg">
+<span>17 · Aliantzak</span>
+</div>
+<div class="accordion-content">
+<p>Garapen jasangarria lortzeko nazioarteko lankidetza eta aliantzak indartzea.</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Flag_of_the_Basque_Country.svg/640px-Flag_of_the_Basque_Country.svg.png">
+<span>18 · Hizkuntza eta Kultura Aniztasuna</span>
+</div>
+<div class="accordion-content">
+<p>Euskadik gehitutako helburua. Hizkuntza gutxituen babesa, kultura aniztasuna eta identitatearen transmisioa sustatzen ditu.</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<section id="inpaktua">
+  <div class="interactive">
+    <h2>Inpaktuaren Simulazioa</h2>
+    <p>
+      Dokumentu erreferentzialean azaltzen den bezala, GJH-en arrakasta ez da soilik ekintzak egitea,
+      baizik eta benetako emaitzak eta inpaktua neurtzea.
+    </p>
+
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+      </div>
+
+      <h3 id="status">0% · Hasierako maila</h3>
+
+      <div class="controls">
+        <button onclick="setLevel(25)">1. Maila</button>
+        <button onclick="setLevel(50)">2. Maila</button>
+        <button onclick="setLevel(75)">3. Maila</button>
+        <button onclick="setLevel(100)">Erreferentzia</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <h2>Iraurgi Berritzen · 2030 Agenda</h2>
+  <br>
+  <p>
+    Garapen Jasangarrirako Helburuen inguruko HTML interaktibo hau Iraurgi Berritzen erakundearen ikuspegi estrategikoarekin lerrokatuta diseinatu da.
+    Diseinu moderno, bisual eta pedagogiko baten bidez, erakundeen eraldaketa jasangarria sustatzen du.
+  </p>
+</footer>
+
+<script>
+  function setLevel(value) {
+    const progress = document.getElementById('progress');
+    const status = document.getElementById('status');
+
+    progress.style.width = value + '%';
+
+    if(value === 25) {
+      status.innerHTML = '25% · Hasierako garapena';
+    } else if(value === 50) {
+      status.innerHTML = '50% · Garapen sistematikoa';
+    } else if(value === 75) {
+      status.innerHTML = '75% · Integrazio aurreratua';
+    } else if(value === 100) {
+      status.innerHTML = '100% · Erreferentziazko erakundea';
+    }
+  }
+
+  const hiddenObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = 'translateY(0px)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.card, .timeline-item, .ods-item').forEach(el => {
+    el.style.opacity = 0;
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'all 0.8s ease';
+    hiddenObserver.observe(el);
+  });
+function toggleAccordion(element){
+const content = element.nextElementSibling;
+if(content.style.maxHeight){
+content.style.maxHeight = null;
+}else{
+content.style.maxHeight = content.scrollHeight + 'px';
+}
+}
+</script>
+
+</body>
+</html>
