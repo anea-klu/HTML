@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="eu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zerbitzuen kartera | Iraurgi Berritzen</title>
+  <meta name="description" content="Iraurgi Berritzenek eskaintzen dituen zerbitzuen katalogo egituratua, Dossier 2026ko zerbitzuen atalean oinarrituta." />
+  <style>
+    :root {
+      --ib-red: #f32837;
+      --ib-grey: #58585a;
+      --ib-grey-soft: #f1f1f2;
+      --ib-grey-line: #d9d9dc;
+      --ib-text: #454548;
+      --ib-muted: #6b6b6f;
+      --ib-white: #ffffff;
+      --ib-shadow: 0 18px 42px rgba(32,32,34,.10);
+      --ib-radius: 30px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ib-text);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(243, 40, 55, .07), transparent 30rem),
+        linear-gradient(180deg, #ffffff 0%, #f7f7f8 100%);
+      line-height: 1.55;
+    }
+
+    .page {
+      width: min(1560px, 100%);
+      margin: 0 auto;
+      padding: 8px 0 54px;
+    }
+
+    /* @ib-html-izenburu-korporatiboa — aurreko eredu korporatiboaren arabera */
+    .corporate-title {
+      position: relative;
+      background: var(--ib-white);
+      border-radius: var(--ib-radius) var(--ib-radius) 0 0;
+      border: 1px solid #ececef;
+      border-bottom: 1px solid #d8d8db;
+      overflow: hidden;
+      min-height: 246px;
+      margin-bottom: 30px;
+    }
+
+    .corporate-title::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      border-radius: var(--ib-radius) var(--ib-radius) 0 0;
+      background: linear-gradient(90deg, var(--ib-red) 0%, var(--ib-red) 44%, #c94855 73%, var(--ib-grey) 100%);
+      z-index: 2;
+    }
+
+    .corporate-title__inner {
+      min-height: 244px;
+      display: grid;
+      grid-template-columns: 290px 1fr 390px;
+      align-items: center;
+      gap: 28px;
+      padding: 34px 30px 26px;
+    }
+
+    .corporate-title__logo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .corporate-title__label {
+      margin: 0 0 10px;
+      color: var(--ib-red);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+    }
+
+    .corporate-title h1 {
+      margin: 0;
+      color: var(--ib-grey);
+      font-size: clamp(44px, 4.2vw, 70px);
+      line-height: .96;
+      font-weight: 900;
+      letter-spacing: -0.055em;
+    }
+
+    .corporate-title h1 span {
+      color: var(--ib-red);
+      display: block;
+    }
+
+    .corporate-title__desc {
+      justify-self: end;
+      width: min(390px, 100%);
+      background: #f3f3f5;
+      border-left: 4px solid var(--ib-red);
+      border-radius: 16px;
+      padding: 18px 20px;
+      color: var(--ib-text);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .corporate-title__line {
+      height: 1px;
+      background: var(--ib-grey-line);
+      margin: 0 30px;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin: -12px 28px 24px;
+    }
+
+    .print-button {
+      appearance: none;
+      border: 0;
+      background: var(--ib-grey);
+      color: white;
+      border-radius: 999px;
+      padding: 11px 17px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(88,88,90,.18);
+    }
+
+    .print-button:hover { background: #3f3f41; }
+
+    .content {
+      padding: 0 28px 42px;
+    }
+
+    .intro-panel {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 22px;
+      margin-bottom: 24px;
+    }
+
+    .intro-card, .source-card {
+      background: white;
+      border: 1px solid #e8e8eb;
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 10px 28px rgba(32,32,34,.06);
+    }
+
+    .intro-card h2 {
+      margin: 0 0 10px;
+      color: var(--ib-grey);
+      font-size: 28px;
+      letter-spacing: -0.025em;
+    }
+
+    .intro-card p, .source-card p {
+      margin: 0;
+      color: var(--ib-muted);
+    }
+
+    .source-card {
+      border-left: 5px solid var(--ib-red);
+    }
+
+    .source-card strong {
+      color: var(--ib-grey);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .area-tabs {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: rgba(247,247,248,.96);
+      backdrop-filter: blur(8px);
+      border: 1px solid #e8e8eb;
+      border-radius: 18px;
+      padding: 12px;
+      margin: 24px 0;
+    }
+
+    .area-tab {
+      border: 1px solid #dddde1;
+      background: white;
+      color: var(--ib-grey);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .area-tab.active, .area-tab:hover {
+      background: var(--ib-red);
+      color: white;
+      border-color: var(--ib-red);
+    }
+
+    .overview {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-bottom: 34px;
+    }
+
+    .overview-card {
+      background: white;
+      border: 1px solid #e8e8eb;
+      border-radius: 20px;
+      padding: 18px;
+      color: inherit;
+      text-decoration: none;
+      box-shadow: 0 10px 28px rgba(32,32,34,.05);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      min-height: 170px;
+    }
+
+    .overview-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--ib-shadow);
+      border-color: rgba(243,40,55,.28);
+    }
+
+    .overview-card__kicker {
+      color: var(--ib-red);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .overview-card strong {
+      display: block;
+      color: var(--ib-grey);
+      font-size: 22px;
+      line-height: 1.05;
+      margin: 8px 0 10px;
+      letter-spacing: -.03em;
+    }
+
+    .overview-card p {
+      margin: 0;
+      color: var(--ib-muted);
+      font-size: 14px;
+    }
+
+    .area-section {
+      background: white;
+      border: 1px solid #e8e8eb;
+      border-radius: 28px;
+      padding: 28px;
+      margin: 24px 0;
+      box-shadow: 0 10px 30px rgba(32,32,34,.06);
+      scroll-margin-top: 90px;
+    }
+
+    .area-section__title {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 18px;
+      border-bottom: 1px solid #ededf0;
+      padding-bottom: 20px;
+    }
+
+    .area-index {
+      width: 64px;
+      height: 64px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--ib-red), #ff6a70);
+      color: white;
+      font-size: 22px;
+      font-weight: 900;
+      box-shadow: 0 12px 24px rgba(243,40,55,.22);
+    }
+
+    .section-kicker {
+      margin: 0 0 6px;
+      color: var(--ib-red);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .area-section h2 {
+      margin: 0 0 8px;
+      color: var(--ib-grey);
+      font-size: 38px;
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+
+    .area-section__title p:last-child {
+      margin: 0;
+      color: var(--ib-muted);
+      max-width: 900px;
+    }
+
+    .services-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .service-card {
+      border: 1px solid #eeeeef;
+      border-radius: 22px;
+      padding: 20px;
+      background:
+        linear-gradient(180deg, rgba(243,40,55,.035), transparent 32%),
+        #fff;
+    }
+
+    .service-card__head {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .service-card__num {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--ib-grey);
+      color: white;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .service-card h3 {
+      margin: 0 0 8px;
+      color: var(--ib-grey);
+      font-size: 22px;
+      line-height: 1.1;
+      letter-spacing: -.025em;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .tags span {
+      background: #f1f1f3;
+      color: var(--ib-grey);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .service-card__desc {
+      color: var(--ib-muted);
+      margin: 12px 0 16px;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: 1fr 270px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .service-grid h4 {
+      margin: 0 0 8px;
+      color: var(--ib-red);
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    li { margin: 5px 0; }
+
+    .contact-box {
+      background: #f5f5f6;
+      border-left: 4px solid var(--ib-red);
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 14px;
+    }
+
+    .contact-box ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .contact-box li {
+      border-bottom: 1px solid #e2e2e5;
+      padding-bottom: 6px;
+    }
+
+    .contact-box li:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .footer {
+      margin: 38px 28px 0;
+      padding: 22px 0 0;
+      border-top: 1px solid #d8d8db;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      color: var(--ib-muted);
+      font-size: 13px;
+    }
+
+    .footer img {
+      width: 160px;
+      height: auto;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 1100px) {
+      .corporate-title__inner {
+        grid-template-columns: 220px 1fr;
+      }
+      .corporate-title__desc {
+        grid-column: 1 / -1;
+        justify-self: stretch;
+        width: 100%;
+      }
+      .intro-panel {
+        grid-template-columns: 1fr;
+      }
+      .overview {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .services-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page { padding-top: 0; }
+      .corporate-title {
+        border-radius: 0;
+      }
+      .corporate-title__inner {
+        grid-template-columns: 1fr;
+        padding: 28px 20px 22px;
+      }
+      .corporate-title__logo img {
+        max-width: 260px;
+      }
+      .corporate-title h1 {
+        font-size: 42px;
+      }
+      .overview {
+        grid-template-columns: 1fr;
+      }
+      .content {
+        padding: 0 16px 30px;
+      }
+      .area-section {
+        padding: 20px;
+      }
+      .area-section__title {
+        grid-template-columns: 1fr;
+      }
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+      .toolbar, .area-tabs {
+        display: none !important;
+      }
+      .corporate-title {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+      .overview-card, .intro-card, .source-card, .area-section, .service-card {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+      .area-section {
+        page-break-before: auto;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="corporate-title">
+      <div class="corporate-title__inner">
+        <div class="corporate-title__logo">
+          <img src="data:image/jpeg;base64,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" alt="Iraurgi Berritzen logoa" />
+        </div>
+
+        <div>
+          <p class="corporate-title__label">ZERBITZUEN KARTERA - BEZEROAK ETA ERAGILEAK</p>
+          <h1>Iraurgi Berritzenen <span>zerbitzuak</span></h1>
+        </div>
+
+        <aside class="corporate-title__desc">
+          IBk eskaintzen dituen zerbitzuen katalogo egituratua, arlo bakoitzean ematen diren zerbitzuak modu bateratuan jasotzeko.
+        </aside>
+      </div>
+      <div class="corporate-title__line"></div>
+    </header>
+
+    <div class="toolbar">
+      <button class="print-button" onclick="window.print()">PDF / Inprimatu</button>
+    </div>
+
+    <main class="content">
+      <section class="intro-panel">
+        <div class="intro-card">
+          <h2>Zer jasotzen du dokumentu honek?</h2>
+          <p>
+            Dokumentu honek Iraurgi Berritzenen zerbitzuen kartera egituratzen du, arlo nagusien arabera:
+            Tokiko Garapena, Industria, Enplegua eta Prestakuntza, Ekintzailetza eta Turismoa.
+            Katalogoaren helburua da zerbitzu bakoitzaren xedea, eskaintzen diren laguntzak eta kontaktu nagusiak modu bateratuan ikusaraztea.
+          </p>
+        </div>
+        <aside class="source-card">
+          <strong>Iturria</strong>
+          <p>Dossier 2026 - EUS dokumentuko “Zerbitzuak” atala, 25. orrialdetik aurrera.</p>
+        </aside>
+      </section>
+
+      <nav class="area-tabs" aria-label="Arloen nabigazioa">
+        <button class="area-tab active" data-area="Guztiak">Guztiak</button>
+        <button class="area-tab" data-area="Tokiko Garapena">Tokiko Garapena</button>
+<button class="area-tab" data-area="Industria">Industria</button>
+<button class="area-tab" data-area="Enplegua eta Prestakuntza">Enplegua eta Prestakuntza</button>
+<button class="area-tab" data-area="Ekintzailetza">Ekintzailetza</button>
+<button class="area-tab" data-area="Turismoa">Turismoa</button>
+      </nav>
+
+      <section class="overview" aria-label="Arloen laburpena">
+        
+  <a href="#tokiko-garapena" class="overview-card" data-area-card="Tokiko Garapena">
+    <span class="overview-card__kicker">1 zerbitzu</span>
+    <strong>Tokiko Garapena</strong>
+    <p>Urola Erdiko udal eta eragileekin lankidetzan, eskualdearen sustapen sozioekonomikorako politikak, estrategiak eta proiektuak garatzeko arloa.</p>
+  </a>
+
+
+  <a href="#industria" class="overview-card" data-area-card="Industria">
+    <span class="overview-card__kicker">4 zerbitzu</span>
+    <strong>Industria</strong>
+    <p>Eskualdeko enpresen beharrei erantzuteko bitartekaritza, kapazitazioa eta lehiakortasuna sustatzeko zerbitzuak.</p>
+  </a>
+
+
+  <a href="#enplegua-eta-prestakuntza" class="overview-card" data-area-card="Enplegua eta Prestakuntza">
+    <span class="overview-card__kicker">6 zerbitzu</span>
+    <strong>Enplegua eta Prestakuntza</strong>
+    <p>Pertsonen enplegagarritasuna hobetzeko, lan-merkatuari buruzko informazioa emateko eta enpresen kontratazio-beharrak bideratzeko zerbitzuak.</p>
+  </a>
+
+
+  <a href="#ekintzailetza" class="overview-card" data-area-card="Ekintzailetza">
+    <span class="overview-card__kicker">1 zerbitzu</span>
+    <strong>Ekintzailetza</strong>
+    <p>Ideia batetik enpresa-proiektura arteko ibilbidean pertsona ekintzaileei laguntzeko aholkularitza eta bidelaguntza.</p>
+  </a>
+
+
+  <a href="#turismoa" class="overview-card" data-area-card="Turismoa">
+    <span class="overview-card__kicker">2 zerbitzu</span>
+    <strong>Turismoa</strong>
+    <p>Turismo-proiektuei bidelaguntza emateko eta Urola Erdiko informazio turistikoa eskaintzeko zerbitzuak.</p>
+  </a>
+
+      </section>
+
+      
+    <section class="area-section" id="tokiko-garapena" data-area-section="Tokiko Garapena">
+      <div class="area-section__title">
+        <span class="area-index">01</span>
+        <div>
+          <p class="section-kicker">ZERBITZUEN KARTERA</p>
+          <h2>Tokiko Garapena</h2>
+          <p>Urola Erdiko udal eta eragileekin lankidetzan, eskualdearen sustapen sozioekonomikorako politikak, estrategiak eta proiektuak garatzeko arloa.</p>
+        </div>
+      </div>
+      <div class="services-list">
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">1.1</div>
+            <div>
+              <h3>Bulegoak eta arreta</h3>
+              <div class="tags"><span>Bulegoak</span><span>Arreta</span><span>Hitzordua</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Azkoitian eta Azpeitian dauden bulegoetan ematen da arreta. Hitzorduarekin lan egiten da.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>Azkoitia: astearte eta ostegunetan, 10:00–14:00.</li><li>Azpeitia: astelehen, asteazken eta ostiraletan, 10:00–14:00.</li><li>Arreta presentziala eta hitzordu bidezko informazioa.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Mila Urzelai</li><li>kiub@iraurgiberritzen.eus</li><li>Azkoitia: 943 85 73 05</li><li>Azpeitia: 943 15 71 93</li></ul>
+            </div>
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+
+    <section class="area-section" id="industria" data-area-section="Industria">
+      <div class="area-section__title">
+        <span class="area-index">02</span>
+        <div>
+          <p class="section-kicker">ZERBITZUEN KARTERA</p>
+          <h2>Industria</h2>
+          <p>Eskualdeko enpresen beharrei erantzuteko bitartekaritza, kapazitazioa eta lehiakortasuna sustatzeko zerbitzuak.</p>
+        </div>
+      </div>
+      <div class="services-list">
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">2.1</div>
+            <div>
+              <h3>Diru laguntzen bitartekaritza</h3>
+              <div class="tags"><span>Diru laguntzak</span><span>Aholkularitza</span><span>Enpresa</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Iraurgi Berritzeneko Enpresa arlotik erakunde publiko desberdinen programa eta diru laguntzen bitartekaritza eskaintzen da.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>Diru laguntzen informazioa eta jarraipena.</li><li>Enpresaren beharrak eta diru laguntza programaren azterketa.</li><li>Erakunde publiko desberdinen programa eta diru laguntzen bitartekaritza.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Sara Ibarzabal — Enpresa Teknikaria</li><li>Jaione Valverde — Enpresa Teknikaria</li><li>943 85 11 00</li></ul>
+            </div>
+          </div>
+        </article>
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">2.2</div>
+            <div>
+              <h3>Lan eskaintzen bitartekaritza</h3>
+              <div class="tags"><span>Lan eskaintzak</span><span>Bitartekaritza</span><span>Kontratazioa</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Urola Erdiko enpresek langileak kontratatzeko dituzten beharrak aztertu eta bitartekaritza zerbitzua eskaintzen da.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>Lanbide eta Urolanprest atarietan lan eskaintzak publiko egitea.</li><li>Eskaintzarekin bat egiten duten hautagaiekin bitartekaritza.</li><li>Lan eskaintzen kudeaketan laguntza.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Maialen Ituarte — Enplegu Teknikaria</li><li>943 08 34 69</li></ul>
+            </div>
+          </div>
+        </article>
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">2.3</div>
+            <div>
+              <h3>Praktikak, Gradu Amaierako Proiektuak eta Prestakuntza Duala</h3>
+              <div class="tags"><span>Praktikak</span><span>Talentua</span><span>Dual</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Eskualdeko talentua enpresetara erakartzeko eta enpresek dituzten profil kualifikatuen beharrak betetzeko zubi-lana egiten da.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>Enpresek dituzten beharrak jasotzea.</li><li>Unibertsitate, prestakuntza-eragile eta enpresa interesatuen arteko lotura erraztea.</li><li>Praktika, gradu amaierako proiektu eta prestakuntza dualeko aukeren bitartekaritza.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Sandra Fernández — Enplegu Teknikaria</li><li>943 08 34 69</li></ul>
+            </div>
+          </div>
+        </article>
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">2.4</div>
+            <div>
+              <h3>Kapazitazioa eta lehiakortasuna sustatzeko proiektuak</h3>
+              <div class="tags"><span>Kapazitazioa</span><span>Lehiakortasuna</span><span>Digitalizazioa</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Kapazitazioaren eta proiektu pilotuen bitartez, eskualdeko enpresen eraldaketa eta lehiakortasuna sustatzeko proiektuak garatzen dira enpresa eta eragile adituekin elkarlanean.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>Ekonomia zirkularrarekin lotutako ekimenak.</li><li>Pertsonen kudeaketan eraldaketa sustatzeko ekimenak.</li><li>Digitalizazioarekin lotutako proiektuak.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Itziar Abarisketa — Enpresa eta Enplegu Koordinatzailea</li><li>943 85 11 00</li></ul>
+            </div>
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+
+    <section class="area-section" id="enplegua-eta-prestakuntza" data-area-section="Enplegua eta Prestakuntza">
+      <div class="area-section__title">
+        <span class="area-index">03</span>
+        <div>
+          <p class="section-kicker">ZERBITZUEN KARTERA</p>
+          <h2>Enplegua eta Prestakuntza</h2>
+          <p>Pertsonen enplegagarritasuna hobetzeko, lan-merkatuari buruzko informazioa emateko eta enpresen kontratazio-beharrak bideratzeko zerbitzuak.</p>
+        </div>
+      </div>
+      <div class="services-list">
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">3.1</div>
+            <div>
+              <h3>Orientazioa</h3>
+              <div class="tags"><span>Orientazioa</span><span>Enplegagarritasuna</span><span>Lan bilaketa</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Pertsona bakoitzaren beharretara egokitutako aholkularitza pertsonalizatua eskaintzen da, ibilbide profesionala lantzeko eta enplegagarritasuna hobetzeko helburuarekin.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>Curriculum pertsonala landu eta Lanbideko profila eguneratu.</li><li>Irteera profesional desberdinak aztertzen lagundu.</li><li>Prestakuntza aukerak azaldu.</li><li>Lan bilaketa aktiboan lagundu: norbere hautagaitza, bilaketa iturriak eta bestelako tresnak.</li><li>Lan merkatuari buruzko informazioa erraztu.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Maialen Ituarte — Enplegu Teknikaria</li><li>943 08 34 69</li></ul>
+            </div>
+          </div>
+        </article>
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">3.2</div>
+            <div>
+              <h3>Prestakuntzaren informazioa</h3>
+              <div class="tags"><span>Prestakuntza</span><span>Informazioa</span><span>Iragarpen-taula</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Urola Erdian nahiz eskualdez kanpoko prestakuntzari buruzko informazioa eskaintzen da lan bila dabilen edo lana hobetu nahi duen edonori.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>Prestakuntza aukeren inguruko informazioa.</li><li>Lan bila edo lana hobetu nahi duten pertsonentzako laguntza.</li><li>Prestakuntzaren informazioa biltzen duen iragarpen-taula.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Maialen Ituarte — Enplegu Teknikaria</li><li>943 08 34 69</li></ul>
+            </div>
+          </div>
+        </article>
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">3.3</div>
+            <div>
+              <h3>Lan merkatuari buruzko informazioa</h3>
+              <div class="tags"><span>Lan merkatua</span><span>IKTak</span><span>Informazioa</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Lan bila edo lana hobetu nahi duen edonori enplegua eta prestakuntzari buruzko informazio eta laguntza eskaintzen zaio.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>Lan bilaketa aktiboa eta IKTen erabilpena sustatzeko ordenagailuak erabiltzeko aukera.</li><li>Prestakuntzaren informazioa biltzen duen iragarpen-taula.</li><li>Lan merkatuaren inguruko orientazio eta informazioa.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Maialen Ituarte — Enplegu Teknikaria</li><li>943 08 34 69</li></ul>
+            </div>
+          </div>
+        </article>
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">3.4</div>
+            <div>
+              <h3>Lan eskaintzen bitartekaritza</h3>
+              <div class="tags"><span>Lan eskaintzak</span><span>Bitartekaritza</span><span>Lanbide</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Urola Erdiko enpresek langileak kontratatzeko dituzten beharrak aztertu eta bitartekaritza zerbitzua eskaintzen da.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>Lanbideko Baimendutako Enplegatze Agentzia gisa eta Urolanprest atarian lan eskaintzak publiko egitea.</li><li>Eskaintzarekin bat egiten duten hautagaiekin bitartekaritza.</li><li>Lan eskaintzen kudeaketa eta jarraipena.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Maialen Ituarte — Enplegu Teknikaria</li><li>943 08 34 69</li></ul>
+            </div>
+          </div>
+        </article>
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">3.5</div>
+            <div>
+              <h3>Praktiken kudeaketa</h3>
+              <div class="tags"><span>Praktikak</span><span>GAP</span><span>Prestakuntza Duala</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Praktikak, Gradu Amaierako Proiektuak eta Prestakuntza Duala bideratzeko zubi-lana egiten da, eskualdeko talentua enpresetara erakartzeko.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>Enpresek dituzten beharrak jasotzea.</li><li>Unibertsitate eta enpresa interesatuen arteko hitzarmenak bideratzen laguntzea.</li><li>Prestakuntza eta enpresa arteko lotura erraztea.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Sandra Fernández — Enplegu Teknikaria</li><li>943 08 34 69</li></ul>
+            </div>
+          </div>
+        </article>
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">3.6</div>
+            <div>
+              <h3>Dirulaguntzak</h3>
+              <div class="tags"><span>Dirulaguntzak</span><span>Kontratazioa</span><span>Enplegu Planak</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Enplegu arlotik pertsonen kontrataziorako eta praktiketarako diru laguntza programen bitartekaritza eta informazioa eskaintzen da.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>Lanbideko diru laguntzen informazioa.</li><li>Udalen Enplegu Planen kudeaketa.</li><li>Kontratazio eta praktikei lotutako laguntza-programen informazioa.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Sandra Fernández — Enplegu Teknikaria</li><li>943 08 34 69</li></ul>
+            </div>
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+
+    <section class="area-section" id="ekintzailetza" data-area-section="Ekintzailetza">
+      <div class="area-section__title">
+        <span class="area-index">04</span>
+        <div>
+          <p class="section-kicker">ZERBITZUEN KARTERA</p>
+          <h2>Ekintzailetza</h2>
+          <p>Ideia batetik enpresa-proiektura arteko ibilbidean pertsona ekintzaileei laguntzeko aholkularitza eta bidelaguntza.</p>
+        </div>
+      </div>
+      <div class="services-list">
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">4.1</div>
+            <div>
+              <h3>Aholkularitza pertsonalizatua</h3>
+              <div class="tags"><span>Ideia</span><span>Proiektua</span><span>Eraketa</span><span>Kontsolidazioa</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Buruan darabilkizun ideiari forma ematen, bideragarritasuna aztertzen eta bidean sortzen diren zalantzen erantzuna topatzen laguntzen da.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>IDEIA: ideia garatzen eta balioztatzen lagundu.</li><li>PROIEKTUA: enpresari eragiten dioten arlo desberdinak planifikatu eta erabakiak hartzen lagundu.</li><li>ERAKETA: tramiteak, izaera juridikoa, diru laguntzak eta finantzaketari dagozkion atalak landu.</li><li>KONTSOLIDAZIOA: ekintzaile-ibilbideko une erabakiorretan bidelagun izan.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Ione Eizagirre — Ekintzailetza Teknikaria</li><li>943 85 11 00</li></ul>
+            </div>
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+
+    <section class="area-section" id="turismoa" data-area-section="Turismoa">
+      <div class="area-section__title">
+        <span class="area-index">05</span>
+        <div>
+          <p class="section-kicker">ZERBITZUEN KARTERA</p>
+          <h2>Turismoa</h2>
+          <p>Turismo-proiektuei bidelaguntza emateko eta Urola Erdiko informazio turistikoa eskaintzeko zerbitzuak.</p>
+        </div>
+      </div>
+      <div class="services-list">
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">5.1</div>
+            <div>
+              <h3>Aholkularitza pertsonalizatua turismo proiektuetan</h3>
+              <div class="tags"><span>Turismo proiektuak</span><span>Bideragarritasuna</span><span>Bidelaguntza</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Turismo arloan ekiteko negozio ideia berri bat izanez gero, bideragarritasun plana egiten laguntzen da ekintzailetza arloko lankideekin batera.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>IDEIA: ideia garatzen eta balioztatzen lagundu.</li><li>PROIEKTUA: enpresari eragiten dioten arlo desberdinak planifikatu eta erabakiak hartzen lagundu.</li><li>ERAKETA: tramiteak, izaera juridikoa, diru laguntzak eta finantzaketari dagozkion atalak landu.</li><li>KONTSOLIDAZIOA: turismo-proiektuaren ibilbideko une erabakiorretan bidelagun izan.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Turismo Koordinatzailea</li><li>943 85 11 00</li></ul>
+            </div>
+          </div>
+        </article>
+        
+        <article class="service-card">
+          <div class="service-card__head">
+            <div class="service-card__num">5.2</div>
+            <div>
+              <h3>Informazio turistikoa — Turismo Bulegoa</h3>
+              <div class="tags"><span>Turismo Bulegoa</span><span>Loiola</span><span>Informazioa</span></div>
+            </div>
+          </div>
+          <p class="service-card__desc">Urola Erdiko Turismo Bulegoa Loiolan kokatzen da eta bisitariei informazio turistikoa eskaintzen die.</p>
+          <div class="service-grid">
+            <div>
+              <h4>Eskaintzen diren zerbitzuak</h4>
+              <ul><li>Ordutegia: asteartetik larunbatera 10:00–14:00 / 15:00–18:00.</li><li>Igandetan: 10:00–14:00.</li><li>Astelehenak itxita.</li><li>Uztaila eta abuztuan: astelehenetik igandera 10:00–14:00 / 15:00–19:00.</li></ul>
+            </div>
+            <div class="contact-box">
+              <h4>Kontaktua</h4>
+              <ul><li>Oihana Arambarri — Turismo Teknikaria</li><li>943 15 18 78</li><li>i-loiola@urolaturismoa.eus</li></ul>
+            </div>
+          </div>
+        </article>
+        
+      </div>
+    </section>
+    
+    </main>
+
+    <footer class="footer">
+      <div>
+        <strong>IB WIKI kokapena:</strong> 02_BEZEROAK / 03_Zerbitzuen_kartera<br />
+        <span>Dokumentu hau zerbitzuen katalogo eguneratua egituratzeko sortua da.</span>
+      </div>
+      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCADuAmwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD7LpGIUFmIAHUmlJABJOAOSap71ulaST5LVefm4347n2oAcZpp+LYBUI/1jD+Q71m65qGg6TA8uvapbxowG5biUAfgteL/ABg+Or29zNoPggxtJGSk+oEZRD6IO59+lfP+qXd7q1011q17cX87nLPO5b8geB+FOwH11N8Yvhlpj+TDrMJH/TGNiP5VZ0z4kfDPWp0aPWLAzE/KJgVOfxr41VVUYVQB7CkeKN/vxq31FFgPvuBFmi8/Tr8TRsc8uHU+wPanx3bI4jnQxyZwB2P0NfEfg3xp4o8H3az6HqkwiBy9rMxeJx6YPT8K+pPhV8SdF+I2mNayILPV4QDPaM3zA/30PcUgPRI5FcZBp1Yxnmsrryp+c/dcDhx6/X2rWhkWRAwNAD6qXl2kGN7bQxwOCefwq3WVM5/tizXtvf8A9BoAifVwDgFj/wAAb/Ck/tg+rf8AfDf4VzXxN+J1j4G1K0srvTbi6a5RnDRsABj61yn/AA0Lo3/QBvv++1rkqY7D05OMpWaPewvDGa4ujGtRotxls9P8z1D+2D6t/wB8N/hR/bKjqxH/AGzb/CvL/wDhoXRv+gDff99rTk/aE0L+PQtQH0YGo/tLC/zm74Pzr/oHf3r/ADPT/wC24B1m/wDIb/4VImsQsQAw/EFf515nF+0F4XY4k03UY/8AgGav2/xs8AXuBdPPFn/nrbk/0qlj8M9poxqcLZxTV5YeX3X/ACPRF1KHoXjz7ODU63cZ5OR9a4vT/Hfw31A+Xb6pp0bN/eAjNb1nFo14u7TNUDt1DJceZj8CSK6IVYT+Fpnl18BicP8Axqco+qaNtZUbowp9ZDWF/FzDcxzjuZBhvwxxTBe3FuQLmGSH03fMMepYcCtDkNqiqlvexyqpyMN0I6H6VaVgwyDQAtFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAVL1jJLHaI2C/wAz4ODtHXH6V4p+1B4/m0ixi8G6LP5V3eR7rqRDzFD02j0Jr2iKRRLeXjPmOMbcf3do+avh3x7rMviHxxrGsSyF/NuWSPPZFO0D9KEBiIqooVRgCnUUVQBRRRQAVa0fU7/Q9XttZ0qdoL21cOjKeo7qfUGqtFAH2v4P1+18feArXWrPC3DJlkB5jlH3l/Pir/hvUfMHlseRx+Pf9a8M/ZB1x4Nb1fw5JJ+5mjF1CvowODXrl2x07xZNCBtWQiRQOgU//XBqQO6ByM1kTf8AIbs/95//AEGtG0ffAD7VnTf8huz/AN5//QaAPCP2rP8AkatG/wCveT+Yrx+vYP2rP+Rq0b/r3k/mK8fr4zMf96mf0Pwj/wAiXD+j/NhRRRXEfRhSEA9RmlooAYY4/wC4v5VLay3Fo++0uri3f+9HKRTaKFpsJrmVnqdj4e+KHjjRCgi1c3kK/wDLO6Xdn8eK9Q8J/HvS7opbeJ9OexY8GaP54j9fSvn6iu2jmGIo7SuvPU+fzDhbK8en7Skk+8dH+Gn3o+0tPfSdatBqGh30LrJzuibcjfUf/qqSK4ntZBFOpUk4X0b6H+lfHnhfxDrXhe/F7od9JbODlos5jk+q9K+k/hf8SdJ8dWh0y/RLTVlXL27Hh/8AaQ9/517+DzOniPdlpI/K+IeC8TlcXXovnpd+q9V+q/A9EgmWVQQakrGPm2NyI5GLK33H/vex9/51qwSCVAwr1D4okooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAMK8JTw3rbJ1AuCP8Avk18IpyXJ6mRifrk198RwJJb6jYbstJvJ9g4OK+FNcsZNL8QanpkwIktruRCPbcSP0poCpRRRTAKKKKACiiigD0f9mZmX4w2YXo1rIG+mDX0H44fy/FkJB5MCf8AoRrxX9kvSWvPH9/qxU+XY2vl5xxuYj+let+MLj7V442J0hRYm+o5/rUsDv8ARX32ak+lV5v+Q3Z/7z/+g1PoalbNc+lQTf8AIbs/95//AEGgDwj9qz/katG/695P5ivH69g/as/5GrRv+veT+Yrx+vjMx/3qZ/Q/CP8AyJcP6P8ANhRRRXEfRhRRRQAUUUUAFFFFABT7We4tLyG9s53t7qBg8UqHBUj+lMooTtqJpNWex9X/AAm8ZQePfCjJdbU1K2AjukHUN2cfWuo02Z45mgl++h2txjJ9foa+VPhF4kk8L+PbG7LlbW6YW9yOxBPB/CvqnVwI723ukxtm+Q/XGQT+AI/Gvr8txTxFL3t1ufgfGORxyrHful+7nqvLuvl+RsjkUVFav5kKt7VLXonyQUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAUJz9n1BJ84jk+R/r2J/l+NfN37VPguXTPEEfjGyhJsrwCO82jiOQcBj7HgV9M3sSyxFWBIIwazL2ystb0q50LWIkuYZkKMGH319frQB8IUV6B8WPhTrfga8lurSGXUNBZiY50GXgH91x6e9eeo6uMqwIpgOooopgFIdxKrGheRyFRAMlmPQClhWSe4S2toZLi4kO1Iol3Mx9AK+jPgR8HJNLnh8V+MIkF4g32tmeVg/wBpvVv5UgOw+CvhhPh98NftGoqFvrhftN1nqGI4T8OlZvhoS6nrkt9LlmkcsSfrV34geITrN4ukaed1tG3zsP4z/hW94I0j7PArsvNIDrbGPy7dR7Vnzf8AIbs/95//AEGtYDC4rJvCkOpWs8rBUV3yT2+WgDwf9q0geKtGyQP9Hk/mK8e3r/eH519i+JtC8F+JLmK41q2tbuWFSsbOT8oPWsn/AIQD4Zf9Amx/M14GLyqrWrSqRasz9SyPjnBZfl9LC1Kcm4qzta27fc+UNy/3hTq+rG+HPwzn+UaVZ5PoxH9az7/4JeAbsH7NFNayEfKYZun51yyyWutmme1S8RMrk7SjNfJP9T5jor1Tx18Etb0O2kvtDuTqtqg3PCwxKo9v71eVA5yCCCDggjBB9DXnVsPUoS5aisfXZdmmEzKn7XCzUl17r1W6FooorE9AKKKKACiiigBku7yyVOGHIPoRX2F4Yvm1z4Z6dfq2+R7aN2PfIxmvj9vun6V9SfAaVpPgza5PKRSIPwFe1kk7VpR7o/PPEegpZfSq9Yyt96f+R3ukyiSHcv3TyPpV6srw8f8ARYR/0xT/ANBFatfTH4wc/wCNPGOg+D7eC4126aCOd9kZWMtk4z2qfwf4n0fxXpZ1LRbhp7YSGMsyFfmHsfrXkX7X3/IA0f8A6+T/AOgmtn9lL/knE3/X6/8A6CtAHrtcDq/xe8DaVqdxp17qUiXFu5SRRAxwR74rvq+KPHtql78Wr+zclUm1DyyR1ALYoA+j/wDhd3w8/wCgtL/4Dv8A4Uf8Lu+Hn/QWl/8AAd/8K5mP9njw1JGjjVL8blBxuHp9Kd/wzr4b/wCgrf8A5j/CgDuNF+KXgbVplhtddgV26CYGP+ddlG6SIHjYMrDIIOQRXzH8TfgZP4e0WbWdDv3u4rdd8sLrhwo6kHvWl+zD471B9VbwnqVw88DoXtmc5KMOq/SgD6MooooAg1C7t7CymvbqQRwQIXkY9gBk1wlh8ZPAN7ew2cGquZZnCJmBgMn3xWV+034k/sfwIdNhk23GouIxjqEHJP6Yr5jvNE1LS9I03XJo9ltesTbuD12nmgD7zBBAI6GiuX+Fevr4k8C6Zqe7dK0QSbno4GDXUUAY/i7xLpPhXSf7U1qdoLXeI9wQtyenA+lVfBXjPQPGENxNoV09wluwWQtGVwSM964n9qj/AJJh/wBvsf8AJq539j//AJBGuf8AXwn/AKDQB71RRRQBzHjTx54b8HzQRa7ePbtOpaPbGWyB9K1PDGu6d4j0iLVdKmMtrLnYxUqT+BrwT9r7/kJ6N/1xb+Zr0n9nT/klenfVqAPQbqeO2tpbiU4jiQux9ABk154/xs+HyOyNqsoKkg/6O/X8q7jxJ/yL2o/9esn/AKCa+Mvh34dtfFXj+LRb2WSOCaR9zRnDcGgD6U/4Xd8PP+gtL/4Dv/hQPjb8PCcf2tL/AOA7/wCFc3/wzr4b/wCgrf8A5j/CkP7OvhzBxqt/n6j/AAoA9F8O/EDwjr8gi03WrZ5W+7G7bGb6A11FfIvxZ+FWo+Aki1exvWubEuF81RteJu2f8a9f/Zs8bXnibw/PpmqSmW8sMBZD1ePtn6dKAPW6KK8S/aL+Jk2hx/8ACM6FceXfyrm5mXrEp7D3NAHceM/if4R8LSNBfaist0P+WEHzsD6HHT8a4eT9ozw4su1NF1Bk/vblrz74VfB7U/GUY1vW7mW00+Q5BPMs/qRnoPevYIfgZ4DjtxEbS4kOPvtL838qYEvhf41eCtbnS3e7ewmc4C3AwP8AvrpXo0Msc0SywyLJGwyrKcgivn74g/s/wRWMt94Tu5WljUsbWc5347KR0rn/AID/ABG1Hw54gj8Ma5LI1hNL5QEp5gfOO/akB9SVW1S+t9M0641C7cpb28ZkkYDOFAyasgggEcg1z3xL/wCSf67/ANeMv/oJoAz/AAj8SvCXirVv7L0a/knuvLMm1oWX5R15NdjXyb+yx/yVD/tyk/mtfWVABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAVm6jalhvTORyMHBB9RWlQQCMGgDATVo0Q2uqxh4yNpk25BHow9fpXE+Kfgr4B8Tu93Yx/2dcOctJZPgZ91HFei3+nRXAPGD6iuZvtAniYtbO6Y6BGK/wAutAHlN7+zXOJT9i8VN5fYSQDNXNI/ZrsQwbV/El1OAeUhjCZ/Gu7dvFFuuyLUZwo6Dap/mKpXSeJrw7bi/ndfY7f5YoA1vD/hf4f/AA8gMllbW0NwBhpXPmTH8etY3iXxbf64TY6bG9vbE4Y/xP8AX0pLTwnczyh7hndu5Y5J/Gur0XwxBbAEoMj2oAwPCHhoqVllXk8kmvQ7OBYIgqilt7eOFQFAqagAqKWBXOe9S0UAZzaXGzZOKT+yo/atKigDLbR4WGCAagk0SFPmiiRH/vIMN+dbdFAGLZXctpMtvdOzwsdoL8lSegJ7g14D+0n4Tt9E8Q22vWESxW+okrOijgSjv+P9K998RqBC8g4ZFLj6jkVwP7TMSS/DGK4cAyR3MTKfcg1wZnSVTDyv01PquDMdUwub0lF6TfK13v8A5PU+aqKQdKWvjj+gAooooAKKKKAEb7p+lfUfwFjaP4M2pI+/HK4/EV8tShmXYgy7EKo9Sa+w/DmntoPw207TUGyWO2jQr3JOM/pmvaySDdaUuyPzvxHrxjgKVLrKV/uX/BNnw9/x6Qn/AKYp/wCgitWqWkxCODC/dHA+lXa+mPxk8J/a+/5AGj/9fJ/9BNbP7KX/ACTib/r9f/0Faxv2vv8AkAaP/wBfJ/8AQTWz+yl/yTib/r9f/wBBWmB67Xxf4s/5LTcf9hQf+hV9oV8SfEa5ey+KWp3cShnhvi6g9CQc0ID7XtP+PWL/AHF/lUlfLiftCeLkRUXSdNAUAD5X/wAaX/hobxf/ANArTf8Avl/8aQH0T43uLe18I6pPdsqwrbOW3dOlfK37O9vLc/FmwkhBKwl5Hx2XBH9aoeOvif4q8YW4stRuUt7QkFoIRtU/Xua95/Z18I6Bo+gtq9hqMGp31yAJZozxEP7mO3vTA9YoorE8d61F4e8Jajq0pAEELFQe7dAKQHzR8fdYl8WfFGPRrNi8Vs62kQHPzk4b9a9K+NfgqOL4L2Vvax/vNGRXGB0GPnrzj9nXRZfEvxLk1u8XzI7TdcSMejOx4/U5r6k1myh1LSrqwnXdFcRNGw9QRTA8F/ZJ8Rf8hDw1M/8A08QAnp2YfrX0LXxb4Su7nwH8WIhNuT7LeGCYdMqTj+tfaEMiTQpLGwZHUMpHcGkB5T+1R/yTD/t9j/k1c7+x/wD8gjXP+vhP/Qa6L9qj/kmH/b7H/Jq539j/AP5BGuf9fCf+g0wPeqKKKQHzj+19/wAhPRv+uLfzNek/s6f8kr076tXm37X3/IT0b/ri38zXpP7On/JK9O+rUAdt4k/5F7Uf+vWT/wBBNfJnwG/5LBZ/9dJP519Z+JP+Re1H/r1k/wDQTXxJ4W8RXfhbxcNasYYpp4JH2pIDtOT7UAfdVFfLv/DQ3i//AKBOm/8AfL/40jftC+MCpA0vTgfXY/8AjQB6z+0lc20HwuvEnZQ0rqkQPUtz0rzr9kG2mOrazd7T5IhWPPbdkGvM/Efi7W/HuuWsXiDVUt7cybRkYjhB6nFfVvwn8NaL4a8JW9votxHdxzASSXSHImb1+lMDptTuo7HTri8lOEhjZyfoK+NPD1tceP8A4sRrdln+23hklz2QHOPpxX1f8UHaP4ea86cMLKQj8q+bv2YI0k+Jqs/Vbd2X65FID6ws7aGztIrW2jEcMSBEUdAAMCpaK4b4y+NrrwN4eg1O0tI7p5JxGVcnAB+lAHc14z46+B8Wv+LZ9dstVFj5zCQxrHwGHeuS/wCGjNY/6ANr+bf40h/aN1gf8wK0/wC+m/xpgfRunQy29hBBNL5skcYVn/vEDrWL8S/+Sf67/wBeMv8A6Cal8B61L4i8JadrU0SxSXcIkZF6AmoviX/yT/Xf+vGX/wBBNID5u/ZY/wCSof8AblJ/Na+sq+Tf2WP+Sof9uUn81r6yoYBRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUVVvrlbaMuxwoxn8TiqM17dq5C20xwfSgDYpCqnqAaxPt17/AM+s35Ufbr3/AJ9ZvyoA12t4m6qKaLSH+4Kyvt17/wA+s35Ufbr3/n1m/KgDZWKNeiingAdKw/t17/z6zflR9uvf+fWb8qANyisP7de/8+s35Uv269/59ZvyoA26Kzbe9cyJHIjo7KWww7A4/rU11diLYOSXJACjJNAFyisVtQuN3FvOR/uGk/tC5/595/8Avg0AbdNd1QZJFYy3165wlpMx9MY/nSrDqV11iFuvfzWBP1GOPzoAbqBN7cpbx872Gf8AdH3v0ryz9qnV4otF0zw/E4Mk03muncIo/wDr16J4s8S6D4G0mS+1O6DTlfkTOZJT6Adhn8K+UvGPiG/8VeIrjW9QOHlOIo85ESdlFePm2LjCk6Ser/I+/wCBMirYjGRxs42pw1T7vpb03Zk0UUV8uftYUUUUAFFFLHHLNNHBbxNLPKwSKNRksx6CgTaWrOw+DPhp/E/j6ziZN1pZMLi4JHHH3R+NfUersJtQgtUxtgG847MRgD8s1zHwj8JQ+BPBvmXQDajdAS3J7lj0QfSuo0qF5JWnm5kZtzd+fQewr7DLcL9Xo+9u9WfgXGOdLNce/Zv93DRefd/N/hY1LVPLhVfapaKK9A+TPCf2vv8AkAaP/wBfJ/8AQTWz+yl/yTib/r9f/wBBWsb9r7/kAaP/ANfJ/wDQTWz+yl/yTib/AK/X/wDQVpgeu18XeL1V/jNco6hlOpgEHv8ANX2jXxf4s/5LTcf9hQf+hUID65t/D+iNbxM2lWZJQZPlD0p//CO6F/0CbP8A79CtC0/49Yv9xf5VJSA8l+OHw38P3/g++1aw0+G01CzjMyyRLjeB1U151+yZqlxB4wvdK3n7PPbGQrnjcCMH9TX0H4+jMvgrWIx1a0kH6V8zfsySeX8UFX+/C6/rQB9a14P+1n4k8jS7Hw3BJh5286cA9FHTP1ya93dlRC7EBVGSTXxx43vbjx/8YHityZEmuhbwDrhAf/10AU/Cdv8AEfSrEz+HIdUtre6AYvAuBIOxrZ/tH40/8/Ov19YaPYw6ZpVrp8ChYreJY1GOwGKt4HpQB8KeLrDxRHdnVPElteJPcN/rp1wXavq/4E+Ih4i+HdhK77ri2X7PLz0K8D9MVX/aE8P/ANu/Dm7MaBp7Mi4j4546/oa8n/ZP8RfY/Ed34fmfEd6nmRAn+Nev6UwPRf2plJ+GBwOl5GT+TVzH7H8qf2frkORv81Gx7YxXqnxY8PN4n8CajpcQzO0e+H/fHSvl/wCD3jGX4f8AjNzfxuLWTMF4mOUweuPUGgD7KorK0XxHoes2iXWm6na3EbjI2yDI+o6ioPEfizw9oFjJd6nqltEqDOzeC7ewHU0gPCv2vpEOs6PFuG8QMxHtuNenfs7oyfCvTNwxu3EfSvnLx3rl98S/iIHsYHImcQWkWMlUz1P86+ufBujpoHhfTtIjxi1gVDj170AWPEn/ACL2o/8AXrJ/6Ca+SPgdBDc/Fu0iuIkljMkmVcZB5r638Sf8i9qP/XrJ/wCgmvkz4Df8lgs/+ukn86APq7/hHtC/6BNn/wB+hQ3hzQSCDpFmQf8ApkK1KKAPnf8AaX+H2jaXo0XiXRrSOzbzhFcRxjCtno2PXitz9krVJ7rwnqOnTOzJaXA8oE9Awyf1re/aZjL/AAtucfwzo3864r9kCT93rcOf4kb9KYHt3i+xbUvC+p2CjLT2zoPxFfJnwL1FdE+K1ityfLWSRoHz2znH64r7IIBGD0NfKP7QHgq88K+Lj4i0yNlsLqXzldR/qpc5x7e1ID6uqlq+k6bq9usGp2UN3Erbgki5APrXnXwj+LOi+I9JgstVvI7LVokCyCVtqy4/iBPHPpXpqXFu6eYk0bJ6hhigDD/4Qjwl/wBC/Yf9+q+c/wBp+00fTvFdlp+k2cFtstt0ixLjkk9a998efEXw34T06Sa5voZ7rBEdtE4Z2b3x0FfIfjTVdV8SavceJNQikCXcpCMR8ox/CPoMU0B9d/BX/kl2g/8AXqtaHxL/AOSf67/14y/+gms/4K/8ku0H/r1WtD4l/wDJP9d/68Zf/QTSA+bv2WP+Sof9uUn81r6yr5N/ZY/5Kh/25SfzWvrKhgFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAGN4kOLSUf7n/oYrnvjN4+b4faDa6mumm/M84h2CTbj3roPEv/AB6y/wDAP/Q1ryr9sL/kR9M/6/h/IUAYf/DSk3/Qqt/4ED/Cj/hpSb/oVW/8CB/hXgNFOwHv3/DSk3/Qqt/4ED/Cj/hpSb/oVW/8CB/hXgNFFgPfv+GlJv8AoVW/8CB/hR/w0pN/0Krf+BA/wrwGiiwHv3/DSk3/AEKrf+BA/wAK1/BPx8l8R+MNN0FvDhtxey+X5vng7ffGK+aq6z4Mf8la8Of9fNAH2JqhI1qHH/Ps/wD6EtLvP9qWS5/if/0Gm6t/yG4P+vZ//QloH/IWsv8Aef8A9BpAch8WPif/AMILqtlY/wBkte/aY2fcJNu3GPauN/4aFP8A0LT/APgQP8KzP2rP+Rq0b/r3k/mK8fr5nG5hiKVeUIy0R+zcOcK5VjMso161K8pLV3fd+Z7hN+0LMUPk+Gju/wBqcY/lXOa58cfGWoRGKxhtNMB/iUF3/PpXmVFcU8xxM1ZzPoaHCWTUJc0aCb87v82T6lfX2p3jXup3k95cMcmSVs4+g6CoKKK4223dn0MYxglGKskFFFFIoKKK0vDmga14j1FbDRbCW5lJ+Z8YjQepanGLk7RV2Z1asKUHOo0kt29EZoDM6oiNJI52oijLMfQCvof4GfDD+w0XxR4liUagyZggbpbr6n/arY+Fnwn0zwiq6rqrpf6sF3GRl+SH2Uf1rq5tTGpT7Izi2B+UZ+97n/CvpMvyv2bVSrv0R+R8V8aLFRlg8C/ce8u/kvL8/QsSyPqN0rBSsKH92O5/2j/Ste2iEUYUCorGBI4wRyT3q1Xtn5qFFFFAHnfxu8A3vjzTbG1sryK2a3lLsXXORgir3wb8HXXgjws+k3lzHcSNO0u5BgYIAx+ldtRQAV4PrXwS1e+8ey+IU1W2WF7wTiMoc4znHWveKKAGwrshRCc7VAp1FFAFfUrZb2wntH4WaMofxFeEeEvgt4p8MeJ4Nc07W7MyQyE7GjOGUnkHn0r3+igDJ8U2eo6h4YvLGwmjhvLiAxiQ9FJGCa8s+E/wau/Cni5dc1XUIbvy0Plqi4w5717TRQAUUUUARXkCXVpNbSjKSoyMPYjFeC6F8D9e0PxhDren6xbLHBdeYibDnZuztPPpXv8ARQAi52jdjOOa8s+Kfwa0jxbcPqenSjTdTb77BcxyfUevvXqlFAHybc/BP4i6bKVsTG8ZPDQ3JXP4CptO+Bfj3U51OqTwW8eeXlnMjD8K+rKKAOA+F/wt0PwQn2lM3upMMPcyDp7KOwrv6KKAK2q27XemXVqrBWmhaME9sgivF/hz8GdW8M+N7fXrjU7eaKNmJRUIPP417jRQAUUUUAc58SfDjeK/B19okcqwyzr+7dhkK1ee/CX4YeKPAmvm7TVrO4s512XMWwgkdiOetey0UAFU9Z0yx1jTpdP1K2S4tpVw6OM1cooA+dPGn7Pd4l29z4U1BGiJysE52sn0auXHwm+KiN5KvKF6cXzba+s6KLgfOnhL9n7Ubi7S68W6oAgOWhhbezf8CNd/8TPhbaeIPB9hoOheRp4sXzFlcjB65969MooAw/AOiy+HfCGnaNPKsslpCI2dRgEirPivTZNY8NajpcUgje6t3iViOASMZrTooA8Y+D3wh1TwV4u/tm71KC4j8hotiIQcnHv7V7PRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAYviX/j1l/wCAf+hrXlX7YX/Ij6Z/1/D+Qr1XxL/x6y/8A/8AQ1ryr9sL/kR9M/6/h/IUAfMtFFFUAUUUUAFFFFABXWfBj/krXhz/AK+a5Ous+DH/ACVrw5/180mB9h6t/wAhuD/r2f8A9CWgf8hay/3n/wDQaNW/5DcH/Xs//oS0D/kLWX+8/wD6DSA8L/as/wCRq0b/AK95P5ivH69g/as/5GrRv+veT+Yrx+vjMx/3qZ/Q/CP/ACJcP6P82FFFFcR9GFFFFABRRRQAHpXW+DviN4n8J262mltaNaA5MUkQ5/Ec1yVFXTqTpvmg7M5sVhKGLp+zrwUo9me++GPj/YzMsHiTSZLTccGaH50/Eda9P0efw/4hs11DQL2B1I+9ARgezL6/rXxnV/w7rer+HNRXUNEvXtZ1PKg/I/swr1sNnFSDtV1X4nw+beH2DxEXLBP2cu28X+q/H0PseOae0l8qdcc4Uj7rfT/CtSCZZVyprz34VfEbTfHWntp9/Gltqsa/vYCeHH95a60GSxuvJdiynlGPVh7+/wDOvo6VWFaKnB3R+RY7AV8BXlQxEeWS/rTyNmimROJEDA5p9aHGFFMkmhiIEssaE9NzAUz7Xa/8/MP/AH2KLlKMnsiaioftdr/z8w/9/BSrc27HCzxMfQODSug5JdiWiiimSFFNkkSNd0jqg9WOKj+1W3/PzD/32KLjUW9kTUVD9qtv+fmH/vsUfarb/n5h/wC+xSuh8kuxNRUX2q2Jx9ohyf8AbFS0xNNbhRTJJoYiBJLGhPTcwFM+12v/AD8w/wDfYouNRk9kTUVD9rtf+fmH/v4KVbm2Y4W4iJ9nFK6Dkl2JaKKKZIUU2SSONd0jqg9WOKj+12v/AD8w/wDfYouNRb2RNRUP2u1/5+Yf++xQLq1PS5h/77FK6HyS7E1FIpDDKkEeopaZIUUjuiKWdlVR1JOBUX2u1/5+Yf8AvsUXGot7ImooyMZzxUP2q2/5+If++xQCi3sTUVD9qtv+fmH/AL7FH2q2/wCfmH/vsUrofJLsTUVD9qtv+fmH/vsU5LiB22pNGzegYE0XDll2JKKZJNFFjzJUTPTcwFM+1W3/AD8w/wDfYp3BRb6E1FQ/arb/AJ+Yf++xR9qtv+fmH/vsUroOSXYmoqIXVsSALiHJ/wBsVLTE01uFFRG5tgxU3EQI6guKT7Vbf8/MP/fYpXQ+SXYmoqH7Vbf8/MP/AH2KPtVt/wA/MP8A32KLoOSXYmopscscoJjkRwO6nNKzKqlmYKB1JOBTFZ3sLRUP2u1/5+Yf+/gqVWVlDKQwPQg0A4tboWiimSzQxECSVEJ6bmAoBJvYfRUcc8EjbY5o3PorA1JQDTW5i+Jf+PWX/gH/AKGteVfthf8AIj6Z/wBfw/kK9V8S/wDHrL/wD/0Na8q/bC/5EfTP+v4fyFAj5loooqgCiiigAooooAK6z4Mf8la8Of8AXzXJ11nwY/5K14c/6+aTA+w9W/5DcH/Xs/8A6EtAH/E1sj/tP/6DRq3/ACG4P+vZ/wD0JamuIZcwzQlVeMkgspI5GO1IDyf9oPwR4m8Ua/pl1odgLmKCF1kYuFwTj1rzX/hUfxB/6Aqf9/l/xr6be71YNgNbH/tk3+NJ9s1f1tv+/bf415lfKqVao5ybuz7PLuOMfl+FhhqcIuMdrp33v3PmGT4U/ECMZOhFv92Vf8azbvwF42tc+b4avCB3TDfyNfWAv9VX7yQN9FI/rTxqt8Bg6cjHufPA/pWDySj0kz0qfiRj0/fpQf3r9T4wvrO+sHKX9hdWrDr5sTKB+PSoFYMMqQQe4r7SubnSL+NotU05CpGHM0QZB/wKvNfiL8FNK1K1k1PwkVsbwDd5AOYpvb2NcVfJqkFem7/mfRZX4h4TEzVPFQ9m31vdfPqvxPniipLqCe0u5rS7haC4gcpLGw5VhUdeM1bQ/Qk01dBRRRQMKKKKAJtPvbzTNQg1HTp2gu7dg8bqe/ofavrT4eeJ7Xx74NivkxHeR/JOneOUf0NfItegfAHxM3h7x5FaSybbLU/3TgngP/Ca9PLMW6NVRezPj+M8jjmWBdWC/eU1dea6r9V5n0zpFwT+7k4YEhh6Edf8R7Vq1i6ipttWSRQAtwP/AB9ep/LiteBt8YavrT8FPBv2oLm4g1vSBDPJGDbuTtbH8VePpe6k5wl1csfQOTXrf7U//Ic0f/r3f/0Ksz9my3guPF9ytxBHKvkHh1DD9a8CvB1MU4X3P27JcVDA8NwxThzcqbt395nnP2jV/wDntefm1LHqur2soaO/u4XHQiQg19m/2Vpn/QOs/wDvyv8AhXKfFPwz4fvPBuozXFjawyQQNJHKiBSGA46VtPLpRi2pHk4Xj3DV60aU8NZSdt09/Kx5f8JfivqdvqsGkeIbg3VnMwRJ3+/Ge2T3FfQ4IIBByD0r4btsi6i29RIuPzr7V8OGVtAsGmz5ht03Z9cVtl1aU04y6HlcfZThsHVp16EVHnvdLa66nBftHTSw+AQ8Mjxt9pTlTg9a+bhqOok4F7cf9/DX0b+0r/yT7/t5j/nXg3w8RJfGulRyIroZwCrDINcuPTddL0Po+CZQp5LKrKN+Vyf3JGb9u1T/AJ+7r/vs0fbtU/5+7r/vs19m/wBjaR/0C7L/AL8L/hR/Y2kf9Auy/wC/C/4Vt/Zkv5zy/wDiIlD/AKBvxX+R8faFfaidcsA91clTcx5Bc4+8K+y7X/j2iz/cH8qqjR9JDBhpdkCDkEQLwfyq8BgYFdmFwzoJ3d7nynEnEFPOZU3Cnyct+t73+SPAP2nrm4g17SxDPJGDA2drY7ivIkvdSc4S6uWPoHJr1j9qT/kP6V/1wb+YrL/ZvgguPGkyTwxyr9nPDqCP1ry68HUxThfc/SMlxMMFw5DEuHNyxbt31Z579p1f/ntefm1C6lqtvIGF7dxOOQd5Br7O/srTP+gdaf8Aflf8KwvHHhHQtZ8PXcE+n26OsTNHIkYVlYDg5Fbyy2aV1I8ah4gYapUUKmHsn1un+FjxL4ZfFjV9J1GGx1y5e90+RgpeQ5ePPfPcV9JwSpNCk0TBkdQykdwa+HrmPybiSIHPluVz9DX1x8Irma6+HmkSTklxAFye4FXl1eUm4Sexyce5NhsPGnjKEVHmdmls9LpnPftHyyReBVaKRkbz15U4r5vW/wBQYgC8uCT0Ac19G/tKf8iGv/Xda8I+G6JJ470dJFV1NyuVYZBrnx6bxCXoe3wVKNLJJVXG/K5P7kZn2nV/+e15+bUjXuqRYZrq7T0JYivs8aVpmP8AkHWn/flf8Kgv/D+iX1q9tc6XZvG4wR5Sg/mK2eWS6TPLj4h0L+9htPVf5Hy94N+JPibw7eI/26W8tcjfBM24Ee2elfUHhbW7TxDoVtq1k2Yp0zjup7g18lfEHSIdC8YajplucwwzER+y9hXtX7L91NL4W1C2ckxxXPye2VHFTgK041XSkzbjTK8JWy+OY0IqL020un38zq/jW7x/DfVHjdkYR8EHB618u6Zf3zalahrucgzJwXPqK+oPjf8A8k11X/rmP518raV/yE7T/rsn8xU5i37VHRwDCMssqtr7T/JH2cxP/CN7snP2UHP/AAGvjea+1Pz5MXd1jef4z619oaaAdMtgQCDCuQfoKi/sbSP+gXZf9+F/wruxOFde1nax8Zw9xFTyaVVTpc/M11ta1/J9z4xN/qYGTd3IH++aT+0tQ/5/bj/v4a+l/jnpunW/w3v5YLC1ikDJhkiUEfN6gV8z6QA2q2gYAgzICD3+YV4+IoOjNRvc/Vcizilm+FliFS5bNq2j2V+w/wC3ap/z93X/AH2a7v4D3d7L8SLNJ7id1Mb8MxI6V9Hw6NpBiTOl2X3R/wAsF/wqa30zTreUSwWFrFIOjJEoI/ECvRpZfKE1Lm2Phcw46o4rDVKCw9uZNXutL/I8W/aguLmG90YW80seY5M7GIzyK8Y+3ap/z93X/fZr7Tu7GyuypurSCcr93zIw2PzqH+xtI/6Bdl/34X/Cqr4CVWo5qVrnNk3GdHLsFDDSoczjfW66u/Y+Mvt2qf8AP3df99mkbUNSXG68uRnplzX134nbw14e0W41S/0+wSKJSQDAuWPYDivlDxhrsniHXJ9ReCK3RjiOKNQoRew4rz8Th/YWvK7PueHs9/tpylHD8sF1bT17LQf4av79/EOnq13OwNwnBc+tfZcP+qT/AHRXg/wA+Hxllj8UaxD+7Xm0iYdT/eNe9V6WXUpQg5S6nwPHmY4fE4yNGh/y7TTa2u+nyPj3x7f3yeM9WVLudQLp8AOfU1ijUNTIyLy5P0c1o/ED/kddX/6+n/8AQjXu/wCzzp2n3Pw+WS5sbaZ/tLjdJErHoO5FeZSouvVcb2P0LMM0pZRllLESp82kVbbdeh88fbtU/wCfu6/77NH27VP+fu6/77NfZv8AY2kf9Auy/wC/C/4Uf2NpH/QLsv8Avwv+Fdn9mS/nPlf+IiUP+gb8V/keY/syzTzeHNQM8juROOWOexrt/igzJ4C1dkYqwtmwQfat+0tLW0Ura20MCk5IjQKD+Vc/8U/+Sf6x/wBezfyruVN06HLfZHxdTHRx+cRxEY8qlOOnzR8jDUL/AG4+2T4/66GvoT9nbxgdV0l9Avpi13aDdEWPLp/9avnWCN5pUiQZdyAB71seHtSv/CXiqC8CvFPay4kQ8ZHcflXh4au6U1Lofs3EOT0szwcqCSU94+q/R7H2bXgv7UNzcQavo4hnkjBhfO1iM8ivbNA1S21nR7bU7Rw8U8YYY7eorw39qj/kMaN/1xk/mK9jHO+HbXkflPBlJxzuEJrVc118mZn7Od3dTePCs1xLIvkNwzE19J18zfs2/wDI/H/rg1fTNTl38H5m/HsVHNbJfZX6mL4l/wCPWX/gH/oa15V+2F/yI+mf9fw/kK9V8S/8esv/AAD/ANDWvKv2wv8AkR9M/wCv4fyFd58UfMtFFFUAUUUUAFFFFABXWfBj/krXhz/r5rk66z4Mf8la8Of9fNJgfYerf8huD/r2f/0Ja1oQDEuR2rJ1b/kNwf8AXs//AKEta8H+qX6UgF8tP7oo8tP7op1FADfLT+6KaYIz1UVJRQBUnsYnHyjae1ZkLvpt6i5xDI+117An+L29/wAK3qw/E4As5yOuz/2YUAeH/tQ+HIrHWbHxHaxhVvP3NxgcFgMg/kK8dr6T/alRW+HULHqt2hWvmyvkM1pqGJduup++8EYqeJyem5u7i3H5Lb8wooorzj60KKKKACljmktp4rqJiskEiyKR2wc0lNlG6Jh6g0bBZPRn2ZBeDVvBunaqh3bo4pmbvjALVs6Y++AVwvwjmN38FrLnLC2eP8iRXaaK+6Lj0H8q+7oT56cZd0j+Ysyw6w2Mq0V9mTX3M8P/AGp/+Q5o/wD17v8A+hV5n4P8Uar4Vv3vdJeJZnTYTIm4Yr0z9qf/AJDmj/8AXu//AKFXL/BHwzpXijxHPZatE0sKQllCsVwfwrxa8ZSxTUHqfseS1sPQ4ahUxMeaCi7re65mT/8AC6PHH/PxZ/8Afj/69Ynin4heKfElp9k1K/H2c/ejiXarfWveP+FM+Cf+fOb/AL+tWP4r+CegSaXNJorzW10iFkBbcrEdjmtp4XFuLvK/zPJwfEXDMK0XChyvvyrT8TzD4MeGtL8QeJov7T1GCFIGDrbscNMR2FfVaKEUKowAMAV8Po9xp99vido57eThlOCGBr6/+G+sya94M0/UpjmV4wsh9WHBNaZZUjZwtqcPiHga/PTxbneD0S7dfxOR/aV/5J9/28x/zr5x0q+uNM1CC/tWCzwtuQkZGa+jv2lf+Sff9vMf86+fvB1hBqfiewsLoEwzyhXAOOK58em8QkvI9zgiUIZJKVRXinK/pZHVH4w+OCc/bbf/AL8//XpP+Fw+OP8An9g/79f/AF69ePwV8Gn/AJZXA/7aGk/4Ur4N/wCeVx/38Na/VsX/ADfieZ/rDwv/ANA//ki/zOU+D3xE8T+IfGcOnandRSW7IxKrHg5Ar3auK8KfDTw54a1dNU05JhOilRufI5rta78LCpCFqjuz4jiLF4HF4pVMDDlhZaWtqfPf7Un/ACH9K/64N/MVxvwl8WWfhDxBJqN7BLNG0RQCMc5rsv2pP+Q/pX/XBv5ivP8A4f8AhK68Y6u+nWl1FbOke/dICR+leRXc1inybn6nksMNPhuEcU7U+V39Ls9k/wCF86D/ANAy9/If41ieMPjgl9pE9jo2nSRSToUMsp+4D1wKp/8AChNd/wCgzYf98NXM+Ofhf4g8KaedQnaG6tVOHki/gz0yDW1SrjFF8y0PLwGXcKVMRFUZ80r6Jt6v52Of8JeHNU8T6xFZWNvJIZH/AHkuPlQdyTX194e0yHRtEtNLg/1dtEIwfXFfKvwx8Z6j4U1qEQy5sZpQLiIjgg9/rX1vC4liSRTkMoI/GtssjDlbW55XiHVxft6dOaSp6uNur63PMf2lP+RDX/rutfPfhLUotH8S2GpzIzx20wdlXqRX0J+0p/yIa/8AXda+dfD+myaxrVppcMixyXMgjVm6DNc2Pv8AWFbfQ+g4JVN5HJVPhvK/pbU96/4XzoHQaZe/kP8AGq2pfHrThav9g0idpyPl80gAH8Kwf+FCa7/0GrD/AL4as3xB8FfEul6fLeQ3NreiJSzJHkNgema1lUxqWx5tDL+EJ1Eo1Lvzcv8AgHC3UmqeKPEE1wsMlze3cpYqi55J/lX1H8I/Cz+FPCUVlcY+1zHzZ8dmPb8BXy14c1zUvDuqpqGmzeTOhweMgjuDX154J1pfEHhex1YAKZ4wWA7MOD+tLLVBycn8RXiDPE0sNSpQSVG/Te6Wi9OxhfG//kmuq/8AXMfzr5W0r/kJ2n/XZP5ivqn43/8AJNdV/wCuY/nXytpX/ITtP+uyfzFRmX8ZHV4f/wDIsq/4n+SPtfTP+Qba/wDXFP5CrFV9M/5Btr/1xT+QqxXtrY/IKnxs4P49/wDJMtQ/3k/9Cr5e0b/kLWf/AF3T/wBCFfUPx7/5JlqH+8n/AKFXy9o3/IWs/wDrun/oQrxMx/jL0P2DgH/kU1f8T/JH23D/AKlP90U6mw/6lP8AdFOr3Efjr3Co7q4htbeS4uJFjijUs7MeABUh4Ga8A+PvxC+2SyeGNHm/cocXUqH7x/u/Ssa9eNGHMz1skyetm2KVCnt1fZf1scp8Y/HU3izWmt7WRl0u2YrEv98/3jT/AINeA5fFmsC7u0K6XbMDIxH+sP8AdFc74E8MXvivX4dNtEOwkGaTHCL3NfW/hrRbHw/o8GmafEEhiXHTlj3J968nC0ZYmo6tTY/S+Is3o8P4KOX4LSbX3Lu/N/8ABL1tDFbW8cECBI41CqoHAAqSiivcPx5tt3Z8afED/kddX/6+n/8AQjV/wv8AELxN4b0sabpVzFHbhy+GjycmqHxA/wCR11f/AK+n/wDQjXp3we+G/h3xP4PGp6lHK05nZMq5AwMf4183ShUnWapuzP37MMXgcJldKpjoc0LR0tfWxyn/AAuHxx/z+wf9+v8A69B+MPjj/n9g/wC/X/169d/4Ur4N/wCeVx/38NB+Cvg3/nncf9/DXZ9Wxf8AN+J8t/rDwv8A9A//AJIv8zrvh/qN1q3g3S9SvWDXFxbq8hAwCTVb4p/8k/1j/r2b+VbOh6bbaPpNtploCILdAiZOTgVjfFP/AJJ/rH/Xs38q9KSapNPex+e4ecJ5nGVNWi5q3pzaHyLpZxqVoR/z2T/0IV65+0R4SNvNb+KLOL91OqpchRwrY4NeR6X/AMhG1/67J/6EK+y9Y0m21zw3Lpd2gaKeHbyOhxwfwNePg6KrU5x9D9W4rzaWVY/CYhbe8mu6dr/5ni/7N3i/yLqTwxey/u5fntSx6N3WmftUf8hjRv8ArjJ/MV5nrNlqPhDxZJb5aK5spt0bjuAeCK6/40a/B4m0zw3q0TqXa2dZ1H8DgjINHtm8PKlLdf5lPKoQz2hmNDWFRO9u/K9fmvxJP2bf+R+P/XBq+ma+Zv2bf+R+P/XBq+ma78u/g/M+J4//AORt/wBur9TF8S/8esv/AAD/ANDWvKv2wv8AkR9M/wCv4fyFeq+Jf+PWX/gH/oa15V+2F/yI+mf9fw/kK7z4k+ZaKKKoAooooAKKKKACus+DH/JWvDn/AF81yddZ8GP+SteHP+vmkwPsPVv+Q3B/17P/AOhLWvB/ql+lZGrf8huD/r2f/wBCWrkt2sEaBiRu4GBnmkBeorFbVHDECOUj/cNJ/akn/PKX/vg0AbdFYh1SX/nnL/3waX7ZfOuUsrlx6rtH8zQBsPIqLkkViagTfXKWq8iU4b/cHU/yp62+pXP3lSBD3c5dfw6Gs3xb4n8P+BtLlvNRula4Zfkj3ZllPYAdhUznGEeaTsjbD4eriaipUouUnskecftW6vENO0rQEYGSWXzpADyFA4/WvBK1fGHiC+8U+IrnW9QOJJjiOPPESdlFZVfF42v7es5rY/onh7K3leXU8NL4lq/V7/dsFFFFcp7YUUUUAFI33T9KWmTHELn0U0Aj6l+BIK/Bu2LdCsp/8eNdv4eGIAD6Vyfwut3tPgvYxkYY2bP+eT/Wux0ZQIsj0H8q+4wqtQgvJH81Z5NTzLESXWcvzZ4d+1P/AMhzR/8Ar3f/ANCrE/Z61XTtJ8VXE+pXkVrEYCA0hwCa6v8AaS0TVtV1nSpNOsJ7lUgYMY1zg7q8n/4Q3xR/0BLz/v2a8mu5wxLmlc/VckjhcXw9DCVaqjzJp6q61fc+p/8AhOfCP/QwWP8A38rD8Y/FDwtpWjzvaanDe3bIRFFCcnJHGfQV86f8Ib4p/wCgLe/9+zU1r4D8XXLhYtDuiT/eGP51s8fXasofmeZS4MyelNTqYm6XS8Uc9cSPcXMkpGXlctj3Jr63+EGmzaX8PtMtp1KyFPMIPUbua81+GXwbuor+LU/FARUiIZLUHJJ/2u1e7KoVQqgBQMACtMvw0oNzn1PN44z/AA2MjDB4Z8yi7trbskjzD9pX/kn3/bzH/OvAvAlzBZ+L9NubqVYoY5wXdjwor6I/aC06+1PwN9nsLaS4l+0IdiDJxXz3/wAIb4o/6Al5/wB+zWGPUvbqSXY93gurh3k0qNSajdyW6vqkfUP/AAsLwX/0Mdh/33R/wsLwV/0Mdh/33Xy9/wAIb4o/6Al5/wB+zR/whvij/oCXn/fs1f8AaFb+T8zi/wBR8o/6CvxifUJ+IfgoDJ8R2H/fddJbTxXNulxA4kikUMjDoQe9fHJ8G+KMf8gS8/79mvrbwnFJD4a06KVCjpboGU9QcV14TEVKzanGx8zxLkOCyunTlhqvO5N31Wn3Hh/7Un/If0r/AK4N/MVn/s0f8jvP/wBe5rof2j9D1bVdb019OsJ7lUhYMY1zg5FUf2fNA1nTPGM02oadcW0ZgIDOhArilGX129up9bRxNH/VN0+dc3K9Lq+/Y+ga5b4rxrJ8P9WVhkeQT+VdTWP42sn1HwnqdnEu6SS2cIPU44FevUV4NH5dl9RU8VSm+kl+Z8Yw/wCtj/3h/Ovtfw4xbQbFj1MC/wAq+RU8HeKFYH+xLw7T/wA8z2r6p+Hl9LfeErJ7i0ntZo0EUkcq4OV4z9K8rLE4ykmj9J8Q6lOvQozpyTs3ezT3/wCGOP8A2lP+RDX/AK7rXhPwz/5H7Rv+vla+gP2gtPvdS8FLBYW0lxL56nai5NeM/D7wr4itfG2k3FxpF1HElwCzMhwBU4yEniU0ux0cKYmjDIKkJTSfv6XXY+rB0plwAbeQHoUP8qeOlI43Iy+oxXtH5InZnxNr6LHrd6ijAWdgB+NfTX7PzFvhlYAnOGcf+PGvC/GHgzxGPFWpiDSLqSL7QxR1QkMM9RXtH7P8l9a+Gn0TUNOubSa1YsGkTCsGPavEwMXCu7rufr3GVelismg6ck2nFvVX2/4JrfG//kmuq/8AXMfzr5W0r/kJ2n/XZP5ivrD4xWlzffD7Ura0heaZ0+VEGSea+a9O8IeJo9QtnfRbwKJVJPln1FPMYSdVWRnwHiaNLLasZzSfM92uyPrvTP8AkG2v/XFP5CrFQacpTT7dWGGESgj8BU9eytj8nqfEzg/j3/yTLUP95P8A0Kvl7Rv+QtZ/9d0/9CFfVPxrs7q/+Hl9bWcDzzMyYRBknmvnLSvCHiaPU7R30W8CiZCSYzwMivGzCEnWVkfrPAuJo0srqRnNJ8z3a7I+v4f9Sn+6KdTYhiJAf7op1e0j8ke55j8dfHb+GtLGlaeSNQvEPzj/AJZp3P1r5pQNcXIDSDfI3Lue57k17T+0ToWsap4otJNP0+4uUEGC0aEgV5j/AMIb4o/6Al5/37NeBjXUnVatoj9u4PjgcHlkJKaU56u7V7/8A91+GN/4B8HaAlqPEOnPeyANcS7uS3p9BXWf8LC8Ff8AQx2H/fdfL3/CG+KP+gJef9+zR/whvij/AKAl5/37NawxtWEVGMNPmebiuEctxdaVati25S1esT6ji8f+DZZUij8Q2LO5CqA/U10wIIBHINfIOi+EfEsWsWckmjXaqJlJJjPHNfXcAIhQHqFH8q78JXnWT5lax8XxNkmEyqVNYarz8176rS1ux8b/ABA/5HXV/wDr6f8A9CNezfAnxZ4b0fwKtpqesWtrP9odvLkbBwcc15n438KeI7nxfqs0Gj3ckb3LlWEZwRmsf/hDfFH/AEBLz/v2a8inOpRquSjc/T8bhcDm2W08NVrKKSi9Gr6LzPqH/hYXgv8A6GOw/wC+6P8AhYXgv/oY7D/vuvl7/hDfFH/QEvP+/Zo/4Q3xR/0BLz/v2a6v7QrfyfmfOf6j5R/0FfjE+stC8TaDrkskWk6pb3jxjLiNs4FUPin/AMk/1j/r2b+Veafs4aJq2lavqLajYT2ytEApkQjNen/Em3muvA+q29vG0sr27BVUZJOK7oVJVaDlJWep8djMDQy7OIUaM+aKcddPLtofIOl/8hG1/wCuyf8AoQr7ctf+PaL/AHB/KvkDTvB/iZb+1ZtFvAolQk+WeORX1/bAi3jBGCFH8q5Msi4qV12Pp/EWvSrSoezknbm2d+x5H+0Z4QGoaUviOzizcWoxPgctH6/hXzyXYoELHaOQM8CvuG7giuraS2nQPHIpVlI4INfK/jv4d63pXie6tdO064ubQtvhdFyNp7fWs8wwz5vaRW53cC5/B0HgsRJJx1i2+nb5Gp+zb/yPx/64NX0zXzz8APD2taZ43M9/ptxbxeQw3OhAzX0NXXl6ao69z5njurCrmnNBprlW3zMXxL/x6y/8A/8AQ1ryr9sL/kR9M/6/h/IV6r4l/wCPWX/gH/oa15V+2F/yI+mf9fw/kK7j4w+ZaKKKoAooooAKKKKACus+DH/JWvDn/XzXJ11nwY/5K14c/wCvmkwPsPVv+Q3B/wBez/8AoS0oY/2nZL23P/6DSat/yG4P+vZ//QloH/IWsv8Aef8A9BpAcr8U/ifB4F1SzsZdKmvDcxs4ZHC7cVyH/DQtn/0Ld1/39FYn7Vn/ACNWjf8AXvJ/MV4/XzWNzHEUq8oRei8j9j4d4TyrG5ZRr1qd5SWur7vzPez+0LZ448N3Of8ArqKpXf7QtyQfsnhrnsZJhXiNFcjzTFP7X4I9yHBWSxd/Y3/7el/mej698a/G2pqY7RrXTI2GD5SbnH4nIrz2+urvULs3eoXc13cN1klbcfw9PwqKiuWriKtX45XPcwWWYPAq2GpKPotfv3CiiisTvCiiigAooooAKdDBJd3UFpEMyTyrGo9ckCm13/wB8ONr/wAQYbmSPdaaYPOkJHBf+EVrQpOrUUF1OLMMZDA4WpiJ7RTf+X3s+jWtRpvhbTtMQBSixRFR3AA3fpWxpibIB+lZ2pObnV0jXBW3XqP77dR+VbEChIgo9K+6SsrI/mWc3OTk92PooopkBRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAGL4l/wCPWX/gH/oa15V+2F/yI+mf9fw/kK9V8S/8esv/AAD/ANDWvKv2wv8AkR9M/wCv4fyFAHzLRRRVAFFFFABRRRQAV1nwY/5K14c/6+a5Ous+DH/JWvDn/XzSYH2Hq3/Ibg/69n/9CWgf8hay/wB5/wD0GjVv+Q3B/wBez/8AoS0D/kLWX+8//oNIDwv9qz/katG/695P5ivH69g/as/5GrRv+veT+Yrx+vjMx/3qZ/Q/CP8AyJcP6P8ANhRRRXEfRhRRRQAUUUUAFFFFABRRSxrJLMkEETzTSMFjjQZZiewFAthYYpp7iK2tomluJnCRRqMlmPQV9YfCvwtF4D8EpFcbTqE/7y5YfxSHov0Fcx8EPhcPD6r4k8RxodTZcwxHkW6//FV6PI8mo3YYZ8lT+7H/ALMf6V9PleAdJe1qLV7eR+Ncb8Twx0vqWFd6cXq+78vJfiyTR7dyTLJy7Esx9z/h0rYqO3jEUYUVJXsn52FFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAGL4l/49Zf+Af+hrXlX7YX/Ij6Z/1/D+Qr1XxL/wAesv8AwD/0Na8p/bD/AORH0z/r+H8hQB8zUUmR60ZHrVALRSZHrRketAC0UmR60ZHrQAtdZ8GP+SteHP8Ar5rksj1rrPgwR/wtvw5z/wAvNJgfYmrf8huD/r2f/wBCWgf8hay/3n/9Bo1b/kNwf9ez/wDoS0D/AJC1l/vP/wCg0gPC/wBqz/katG/695P5ivH69f8A2rmVfFWjZIH+jyfzFeO+ZH/fX86+MzL/AHqZ/Q/CKf8AYuH9H+bH0UzzI/76/nR5sf8AfX864j6OzH0VGZ4R1lX86VJUc4Q7z6KM0BZj6Ks2mnapdsFtdKv5iemyBiK6PSfhp471NwsOgSwKf452CAfnWkKNSfwxbOWvjsNh1etUjH1aRydNd1T7zAZ6e9ey6B8AdZuNr63rMNqueY7dct+Z4r0fw58LfAnhbZPLbR3VwDxLdtuJPsDxXfRynEVN1ZeZ8vj+OspwiapydR9orT73p+Z8++DPh/4p8WTL/Z9g9vaE/NdXClVA9h1NfQnw9+G3h3wLCL2Zhd6kww11KMkH0QdvwrqjqLbBDp9qIkAwGddoX6L1/GkgspZpPNndnf8AvN1H0HQV7mFy2lh/e3fc/Nc84yx2ap0l7lN9F19X1/IbLLcag+0qUhzwnr7t/hWnaW6wr6k9afBAkS4UVLXonyIUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAGP4kX/Q5W/3P/QxWf4+8J+GfG+mw6fr+2aCGTzUCyhcNXRXUCTIVcBlPUEZBrOfSLMn/j1tf+/QoA89/wCFFfDD/n1f/wACRR/wor4Yf8+r/wDgSK9A/saz/wCfa2/79Cj+xrP/AJ9rb/v0KAPP/wDhRXww/wCfV/8AwJFH/Civhh/z6v8A+BIr0D+xrP8A59rb/v0KP7Gs/wDn2tv+/QoA8/8A+FFfDD/n1f8A8CRR/wAKK+GH/Pq//gSK9A/saz/59rb/AL9Cj+xrP/n2tv8Av0KAPP8A/hRXww/59X/8CRV7w98H/h5oWu2mtafAyXlo++JjcAgH6V2X9jWf/Ptbf9+hQNGs/wDn1tf+/QoATUCk2tRGN1fFs/3Tn+JaWcpBe2k8rbUVnyceq1atdPt4G3RQxRnGCUQDNWpIQ3IODQBzfiHS/Bmv3Ec+s2lreSxAqjSKSVBrN/4Q74af9AbT/wDvhq6xtPRmJLGk/s6P+8aylRpyd3FfcdlPMcXSioQqySXRNpfmcp/wh3w0/wCgNp//AHw1KvhH4apyNG07/v21dV/Z0f8AeNKNOT+8aX1el/KvuL/tXHf8/pf+BP8AzOZj0D4cxH5NJ05SP+mJ/wAKv28HhG2ANnp1ox7CODn9RW0tkAMb2/Ol+wxH73NUqUFtFGU8dianxVJP1bKCajbRj91pE6ehEKgfzoOpai4IS0gQHo3mbiPwx/WtJbSFf4RUqxRr0UVoczbe5jGPU7jAlu5AB0MK+X+fXNS22kojFyo3N949SfrmtcADoKKBEENrHGBgc1OAAOKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/2Q==" alt="Iraurgi Berritzen logoa" />
+    </footer>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.area-tab');
+    const sections = document.querySelectorAll('[data-area-section]');
+    const overviewCards = document.querySelectorAll('[data-area-card]');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const area = tab.dataset.area;
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        sections.forEach(section => {
+          const show = area === 'Guztiak' || section.dataset.areaSection === area;
+          section.classList.toggle('hidden', !show);
+        });
+
+        overviewCards.forEach(card => {
+          const show = area === 'Guztiak' || card.dataset.areaCard === area;
+          card.classList.toggle('hidden', !show);
+        });
+
+        if (area !== 'Guztiak') {
+          const target = document.querySelector(`[data-area-section="${area}"]`);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
